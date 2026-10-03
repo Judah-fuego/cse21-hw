@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+\begin{flushright}
+CSE 21 Fall 2026\\
+Homework 1\\
+Submitted: {\today}
+\end{flushright}
+
+\begin{center}
+David Washington, Judah Boyce, Osi, NickYoug    
+\end{center}
+
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+      \item Assume that for all $n \ge 1$ 
+        \[
+            2 + 5 + 8 + \cdots + (3n - 1) = \frac{n(3n + 1)}{2}
+        \]
+        First we prove that at $n=1$ the left and right side are equivalent: P(1) = P(1).  When $n = 1$:
+        \[
+          (3(1) - 1) 
+          = 2
+          = \frac{1(3(1) + 1)}{2}
+          =  \frac{4}{2}
+          = 2
+        \]
+        Assuming $P(k)$ is true. For $n \ge 1$ , $P(k) \rightarrow P(k+1)$ is again equivalent for the left and right side.
+        RHS $P(k+1)$
+        \[
+          \frac{(k+1)(3(k+1) + 1)}{2}
+          = \frac{(k+1)(3k+4)}{2}
+          = \frac{3k^2+7k+4}{2}
+        \]
+        Since the LHS and RHS are equivalent we add the next element of the LHS to both sides and it should be equivalent to the RHS P(k+1)
+        \[
+          2 + 5 + 8 + \cdots + (3k - 1) + (3(k+1)-1)
+          = \frac{k(3k+1)}{2} + (3(k+1)-1)
+        \]
+        \[
+          = \frac{(k)(3k+1)}{2} + \frac{6k+4}{2} 
+        \]
+        \[
+          = \frac{3k^2+k}{2} + \frac{6k+4}{2} 
+        \]
+        \[
+          = \frac{3k^2+7k+4}{2}
+        \]
+
+      The last equation shows that $P(k+1)$ is true under the assumption that $P(k)$ is also true. Therefore,
+        \[
+            2 + 5 + 8 + \cdots + (3n - 1) = \frac{n(3n + 1)}{2}
+        \]
+        Assume that for all $n \ge 1$ 
+
+      \item Assume for all $n \geq 1$:
+      \[
+        \prod_{k=1}^{n}\left(1 + \frac{1}{k}\right) = n + 1
+      \]
+      First we prove P(k) is true such that at $n=1$ the left and right side are equivalent:
+      \[
+        \prod_{k=1}^{1}\left(1 + \frac{1}{k}\right) = 1 + 1
+      \]
+      \[
+        (1+1) = (1+1)
+      \]
+      \[
+       2 = 2
+      \]
+      Since P(k) is true we will now prove that $P(k) \rightarrow P(k+1)$ is again equivalent for the left and right side.
+      LHS:
+      \[
+        = (k+1) + 1
+        =k+2
+      \]
+      RHS and LHS:
+      \[
+        \prod_{k=1}^{n}\left(1 + \frac{1}{k+1}\right) = (k+1)(1+\frac{1}{k+1})
+      \]
+      \[
+       = k+1 + \frac{k+1}{k+1}
+       = k + 1 + 1
+       = k + 2
+      \]
+
+      This proves that $P(k+1)$ is true assuming that $P(k)$ is true.
+      Therefore, by mathematical induction,
+      \[
+        \prod_{k=1}^{n}\left(1+\frac{1}{k}\right)=n+1
+      \]
+      for all $n\geq1$.
+
+    \end{enumerate}
+  
+    \item A license plate is a string over the alphabet of 36 characters consisting of 26 uppercase Latin letters and 10 numerals (0 through 9). (2 points for a correct expression and 2 points for justification)
+    \begin{enumerate}
+      \item How many 7-character license plates have at least 2 numerals? \newline
+      The total number of combinations for 7 positions and 36 characters is $36^{7}$. To find the case where there is at least 2 we can find the compliment (number of combos with no numbers or one number) and subtract that from the total.
+      \newline Total number of w/ no numbers $ = 26^{7}$ 
+      \newline Total number w/ one number $ = \binom{7}{1} \cdot 10 \cdot 26^{6} $ 
+      \newline Number of license plates that have at least 2 numerals:
+      \[
+        = 36^{7} - 26^{7} - \binom{7}{1} \cdot 10 \cdot 26^{6}
+      \]
+
+      \item How many 7-character license plates contain the word MILES as a consecutive sub-
+      string?
+        To find the possible combos,   MILES is a 5 character string that must be in order in the license plate thus there are only 3 ways to place the specific string on the license plate. There are always 2 empty characters that allows for 36 characters each thus:
+        \newline Number of MILES placements = 3
+        \newline Number of unique options for 2 spots with 36 characters  = $36^{2}$
+        \newline Number of plates that contain the word MILES as a consecutive sub-string
+        \[
+          = 3 \cdot 36^2
+        \]
+
+      \item How many 7-character license plates consist of 3 different characters with 3 copies of
+      one, 3 copies of another and a single copy of the last?
+      Ex: AAA3331, P33T3TT, ...
+      To find the combos we assume the following. There will be only 3 unique characters chosen from 36, two of the characters are repeated 3 times, and there is only 3 unique characters at a time.
+      \newline Number of ways to choose 3 characters from 36 = $ \binom{36}{3}$
+      \newline 3 unique Characters  = 3
+      \newline Number of ways to arrange 7 characters but 2 are repeated 3 times = $ \frac{7!}{3! \cdot 3! \cdot 1! }$
+      Number of ways to consist of 3 different characters with 3 copies of
+      one, 3 copies of another and a single copy of the last
+      \[
+        = 
+      \]
+      % your answer
+    \end{enumerate}
+  \end{enumerate}
+
+
+\end{document}
