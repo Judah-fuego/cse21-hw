@@ -95,38 +95,73 @@ David Washington, Judah Boyce, Osi, NickYoug
   
     \item A license plate is a string over the alphabet of 36 characters consisting of 26 uppercase Latin letters and 10 numerals (0 through 9). (2 points for a correct expression and 2 points for justification)
     \begin{enumerate}
-      \item How many 7-character license plates have at least 2 numerals? \newline
+      \item How many 7-character license plates have at least 2 numerals?
+
       The total number of combinations for 7 positions and 36 characters is $36^{7}$. To find the case where there is at least 2 we can find the compliment (number of combos with no numbers or one number) and subtract that from the total.
-      \newline Total number of w/ no numbers $ = 26^{7}$ 
-      \newline Total number w/ one number $ = \binom{7}{1} \cdot 10 \cdot 26^{6} $ 
-      \newline Number of license plates that have at least 2 numerals:
+      \begin{itemize}
+        \item Total number with no numbers: $26^{7}$
+        \item Total number with one number: $\binom{7}{1} \cdot 10 \cdot 26^{6}$
+      \end{itemize}
+      Number of license plates that have at least 2 numerals:
       \[
-        = 36^{7} - 26^{7} - \binom{7}{1} \cdot 10 \cdot 26^{6}
+         = 36^{7} - 26^{7} - \binom{7}{1} \cdot 10 \cdot 26^{6}
       \]
 
-      \item How many 7-character license plates contain the word MILES as a consecutive sub-
-      string?
-        To find the possible combos,   MILES is a 5 character string that must be in order in the license plate thus there are only 3 ways to place the specific string on the license plate. There are always 2 empty characters that allows for 36 characters each thus:
-        \newline Number of MILES placements = 3
-        \newline Number of unique options for 2 spots with 36 characters  = $36^{2}$
-        \newline Number of plates that contain the word MILES as a consecutive sub-string
-        \[
-          = 3 \cdot 36^2
-        \]
+      \item How many 7-character license plates contain the word MILES as a consecutive substring?
+
+      To find the possible combos, MILES is a 5 character string that must be in order in the license plate thus there are only 3 ways to place the specific string on the license plate. There are always 2 empty characters that allows for 36 characters each thus:
+      \begin{itemize}
+        \item Number of MILES placements: $3$
+        \item Number of unique options for 2 spots with 36 characters: $36^{2}$
+      \end{itemize}
+      Number of plates that contain the word MILES as a consecutive substring:
+      \[
+        = 3 \cdot 36^{2}
+      \]
 
       \item How many 7-character license plates consist of 3 different characters with 3 copies of
       one, 3 copies of another and a single copy of the last?
       Ex: AAA3331, P33T3TT, ...
-      To find the combos we assume the following. There will be only 3 unique characters chosen from 36, two of the characters are repeated 3 times, and there is only 3 unique characters at a time.
-      \newline Number of ways to choose 3 characters from 36 = $ \binom{36}{3}$
-      \newline 3 unique Characters  = 3
-      \newline Number of ways to arrange 7 characters but 2 are repeated 3 times = $ \frac{7!}{3! \cdot 3! \cdot 1! }$
-      Number of ways to consist of 3 different characters with 3 copies of
-      one, 3 copies of another and a single copy of the last
+
+      Choose 3 characters. Two of them appear 3 times, and the other appears once.
+      \begin{itemize}
+        \item Choose 3 characters from 36: $\binom{36}{3}$
+        \item Choose which of those 3 appears once: $3$
+        \item Arrange 7 spots with those repetitions: $\frac{7!}{3! \cdot 3! \cdot 1!}$
+      \end{itemize}
+      Number of ways to arrange 3 different characters with 3 copies of
+      one, 3 copies of another and a single copy of the last:
       \[
-        = 
+        = \binom{36}{3} \cdot 3 \cdot \frac{7!}{3! \cdot 3! \cdot 1!}
       \]
-      % your answer
+
+      \item How many 7-character license plates have exactly 3 different numerals and 4 copies of
+      the same letter?
+
+      Similar to the previous one you are choosing 1 character but in this case an alphabetical character from 26 which is repeated 4 times also in this problem you have the last 3 characters as unique numerals
+      \begin{itemize}
+        \item Choose the letter from 26: $\binom{26}{1}$
+        \item Choose and order 3 different numerals: $P(10,3)$
+        \item Arrange 7 spots with that letter repeated 4 times: $\frac{7!}{4! \cdot 1!}$
+      \end{itemize}
+      The number of ways to have exactly 3 different numerals and 4 copies of
+      the same letter:
+      \[
+         = \binom{26}{1} \cdot P(10,3) \cdot \frac{7!}{4! \cdot 1!}
+      \]
+
+      \item How many 7-character license plates are there that are all letters and they are in
+      alphabetical order?
+
+      For this one you choose 7 alphabetical characters from 26 and that set has one alphabetical order.      
+      \begin{itemize}
+        \item Choose the 7 from 26: $\binom{26}{7}$
+      \end{itemize}
+      The number of ways that the license plate is all letters and they are in
+      alphabetical order:
+      \[
+         = \binom{26}{7}
+      \]
     \end{enumerate}
   \end{enumerate}
 
