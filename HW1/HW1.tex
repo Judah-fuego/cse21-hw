@@ -171,7 +171,7 @@ David Washington, Judah Boyce, Osi, NickYoug
       You can arrange 9 paintings and have each painting have 12 options to choose form when being placed.
       Thus the number of ways to place 9 paintings amon 12 rooms in the museum is:
       \[
-         = 9^{12}
+         = 12^{9}
       \]
 
       \item How many ways can the museum curator arrange all 9 paintings among the 12 rooms
@@ -217,13 +217,49 @@ in the museum so that each painting is in a different room?
       \[ 
         = \binom{12}{3} \cdot \binom{9}{3} \cdot \binom{6}{3} \cdot \binom{3}{3}
       \]
-
-
-
-
-
     \end{enumerate}
+    \begin{enumerate}
+    \item How many different ways are there to arrange the letters in the following string:
+    INCLUSIONEXCLUSION? 
+    For this problem the substring CLUSION is repeated twice and the letter I and N once more giving the following:
+    \begin{itemize}
+      \item Total number of arrangements = $18!$
+      \item I and N repeated 3 times and C, L, U, S, O twice = $3! \cdot 3! \cdot 5(2!)$ 
+    \end{itemize} 
+    Different ways to arrange letters from the string INCLUSIONEXCLUSION:
+    \[
+    = \frac{18!}{3! \cdot 3! \cdot 5(2!)}
+    \]
 
+    \item How many different ways are there to color the 9 edges of a triangular prism with 9 different
+    colors (so that two colorings are considered the same if one can be oriented to look the same as
+    the other one?)
+    For this one we consider the number of edges and colors for each and then the ways to rotate the shape
+    \begin{itemize}
+      \item Number of ways to place 9 colors on 9 edges $=9!$
+      \item Number of ways to rotate the shape left and right and twist = $ 3 \cdot 2 $
+    \end{itemize} 
+    So the total number of ways to color the edges given same orientation:
+    \[
+    = \frac{9!}{2 \cdot 3}
+    \]
+
+    \item There are 18 different basketball players. How many ways can they organize themselves into 3
+    games each with 3 players versus 3 players?
+    For this one you have 3 different games with 6 people and then within those 3 games you have two teams that you need to place the 3 people on each team.
+    \begin{itemize}
+      \item First game: $ \binom{18}{6} $
+      \item Second game: $ \binom{12}{6} $
+      \item Third game: $ \binom{6}{6} $
+      \item Ways to arrange the 3 teams for 3 people on two teams : $ 3 \binom{6}{3} $
+    \end{itemize}
+    There are The number of ways organize 18 people into 3
+    games each with 3 players versus 3 players:
+    \[
+    = \binom{18}{6} \cdot \binom{12}{6} \cdot \binom{6}{6} \cdot 3 \binom{6}{3} 
+    \]
+    \end{enumerate}
+    
   \end{enumerate}
 
 
