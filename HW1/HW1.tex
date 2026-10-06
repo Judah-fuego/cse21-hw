@@ -141,14 +141,14 @@ TSN: 200484943, 200453537, 200455712, 200455733
 
       Similar to the previous one you are choosing 1 character but in this case an alphabetical character from 26 which is repeated 4 times also in this problem you have the last 3 characters as unique numerals
       \begin{itemize}
-        \item Choose the letter from 26: $\binom{26}{1}$
-        \item Choose and order 3 different numerals: $P(10,3)$
+        \item Choose the repeated letter: $\binom{26}{1}$
+        \item Choose 3 different numerals: $\binom{10}{3}$
         \item Arrange 7 spots with that letter repeated 4 times: $\frac{7!}{4! \cdot 1!}$
       \end{itemize}
       The number of ways to have exactly 3 different numerals and 4 copies of
       the same letter:
       \[
-         = \binom{26}{1} \cdot P(10,3) \cdot \frac{7!}{4! \cdot 1!}
+         = \binom{26}{1} \cdot \binom{10}{3} \cdot \frac{7!}{4! \cdot 1!}
       \]
 
       \item How many 7-character license plates are there that are all letters and they are in
@@ -165,7 +165,7 @@ TSN: 200484943, 200453537, 200455712, 200455733
       \]
     \end{enumerate}
 
-    An art museum with 12 different rooms just got a shipment of 9 new paintings
+    \item An art museum with 12 different rooms just got a shipment of 9 new paintings
     \begin{enumerate}
       \item How many ways can the museum curator arrange all 9 paintings among the 12 rooms
       in the museum?
@@ -187,14 +187,14 @@ in the museum so that each painting is in a different room?
       \item How many ways can the museum curator arrange all 9 paintings among the 12 rooms
       in the museum so that at least one painting is in the biggest room and exactly one painting is in
       the smallest room?
-      For this question we consider the one painting chosen for the biggest room and that one painting must be in the smallest room.
+      For this question we consider the one painting chosen for the the smallest room.
       \begin{itemize}
-        \item Number of ways to chosen 1 painting for the biggest room = $ \binom{9}{1} $
-        \item Number of ways to place 8 paintings and at least one in the smallest room (compliment, total arrangements subtracted by possible arrangements not in the smallest room) = $11^8 - 10^8$ 
+        \item Number of ways to chosen 1 painting for the smallest room = $ \binom{9}{1} $
+        \item Number of ways to place 8 paintings in any of the other 11 rooms (compliment, total arrangements subtracted by possible arrangements not in the biggest room) = $11^8 - 10^8$ 
       \end{itemize}
       So the total number of arrangements for 9 paintings one in the biggest room and at least one in the smallest is:
       \[
-        =  \binom{9}{1} \cdot 11^8 - 10^8
+        =  \binom{9}{1} \cdot (11^8 - 10^8)
       \]
 
       \item Paintings A,B, and C are all painted by the same artist. How many ways can the
@@ -207,61 +207,19 @@ in the museum so that each painting is in a different room?
       \]
       \item How many ways can the museum curator arrange all 9 paintings in 3 of the 12 rooms
       such that each room has exactly 3 paintings?
-      Given that each room has exactly 3 paintings it means that only 4 rooms will be used at a time, so we can think of it in the perspective of those 4 rooms.
+      Given that each room has exactly 3 paintings it means that 3 rooms will be used at a time, so we can think of it in the perspective of those 3 rooms.
       \begin{itemize}
-        \item For the first room you have 12 paintings and you need to choose 3 = $\binom{12}{3}$
-        \item For the second room you have 9 paintings now and need 3 = $\binom{9}{3}$
-        \item Same thing for the third =  $\binom{6}{3}$
-        \item Same thing for the fourth  =  $\binom{3}{3}$
+        \item First you have 12 paintings and you need to choose 3 rooms to place them in = $\binom{12}{3}$
+        \item For the first room you have 9 paintings now and need 3 = $\binom{9}{3}$
+        \item Same thing for the second =  $\binom{6}{3}$
+        \item Same thing for the third  =  $\binom{3}{3}$
       \end{itemize}
       Thus the total number of ways is equal to product of each room:
       \[ 
         = \binom{12}{3} \cdot \binom{9}{3} \cdot \binom{6}{3} \cdot \binom{3}{3}
       \]
     \end{enumerate}
-    \begin{enumerate}
-    \item How many different ways are there to arrange the letters in the following string:
-    INCLUSIONEXCLUSION? 
-    For this problem the substring CLUSION is repeated twice and the letter I and N once more giving the following:
-    \begin{itemize}
-      \item Total number of arrangements = $18!$
-      \item I and N repeated 3 times and C, L, U, S, O twice = $3! \cdot 3! \cdot 5(2!)$ 
-    \end{itemize} 
-    Different ways to arrange letters from the string INCLUSIONEXCLUSION:
-    \[
-    = \frac{18!}{3! \cdot 3! \cdot 5(2!)}
-    \]
-
-    \item How many different ways are there to color the 9 edges of a triangular prism with 9 different
-    colors (so that two colorings are considered the same if one can be oriented to look the same as
-    the other one?)
-    For this one we consider the number of edges and colors for each and then the ways to rotate the shape
-    \begin{itemize}
-      \item Number of ways to place 9 colors on 9 edges $=9!$
-      \item Number of ways to rotate the shape left and right and twist = $ 3 \cdot 2 $
-    \end{itemize} 
-    So the total number of ways to color the edges given same orientation:
-    \[
-    = \frac{9!}{2 \cdot 3}
-    \]
-
-    \item There are 18 different basketball players. How many ways can they organize themselves into 3
-    games each with 3 players versus 3 players?
-    For this one you have 3 different games with 6 people and then within those 3 games you have two teams that you need to place the 3 people on each team.
-    \begin{itemize}
-      \item First game: $ \binom{18}{6} $
-      \item Second game: $ \binom{12}{6} $
-      \item Third game: $ \binom{6}{6} $
-      \item Ways to arrange the 3 teams for 3 people on two teams : $ 3 \binom{6}{3} $
-    \end{itemize}
-    There are The number of ways organize 18 people into 3
-    games each with 3 players versus 3 players:
-    \[
-    = \binom{18}{6} \cdot \binom{12}{6} \cdot \binom{6}{6} \cdot 3 \binom{6}{3} 
-    \]
-    \end{enumerate}
-
-
+   
  \item
  \begin{enumerate}
 
