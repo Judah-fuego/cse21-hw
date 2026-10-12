@@ -359,6 +359,98 @@ Subtracting both invalid cases from the total gives
 \]
 
 % -----------2d goes here--------
+/item How many ways can the museum curator arrange all 9 prints among the 12 rooms such that at
+least one room has exactly 3 prints?
+
+We use the inclusion-exclusion principle.
+
+Let $A_i$ be the set of distributions where room $i$ contains exactly 3 prints.
+
+We want to find
+
+\[
+\left|\bigcup_{i=1}^{12} A_i\right|
+\]
+
+First, consider one room containing exactly 3 prints. 
+
+We choose 1 of the 12 rooms.
+
+The remaining 6 prints are distributed among the 11 other rooms.
+
+Using stars and bars,
+
+\[
+\binom{6+11-1}{11-1}
+=
+\binom{16}{10}
+\]
+
+Thus, the first term is
+
+\[
+\binom{12}{1}\binom{16}{10}
+\]
+
+Next, consider two rooms that each contain exactly 3 prints.
+
+We choose 2 of the 12 rooms.
+
+The remaining 3 prints are distributed among the other 10 rooms.
+
+Using stars and bars,
+
+\[
+\binom{3+10-1}{10-1}
+=
+\binom{12}{9}
+\]
+
+Thus, the second term is 
+
+\[
+\binom{12}{2}\binom{12}{9}
+\]
+
+Finally, consider three rooms that contain exactly 3 prints.
+
+Since all 9 prints have been used the remaining rooms are empty
+
+We choose 3 of the 12 rooms
+
+\[
+\binom{12}{3}
+\]
+
+There can't be four rooms with exactly 3 prints because that would require 12 prints.
+
+Using inclusion-exclusion, we add the single room cases, subtract double room, and add back the triple room cases:
+
+\[
+\boxed{
+\binom{12}{1}\binom{16}{10}
+-
+\binom{12}{2}\binom{12}{9}
++
+\binom{12}{3}
+}
+\]
+
+\item How many ways can the museum curator arrange all 9 prints in 3 of the 12 rooms such that each room has exactly 3 prints?
+
+We need to choose exactly 3 rooms from the available 12.
+
+Since the 9 prints are identical, once we select the 3 rooms, there is only one way to place exactly 3 prints in each room.
+
+Therefore, we use combination to choose the 3 rooms:
+
+\[
+\boxed{
+\binom{12}{3}
+}
+\]
+
+\end{enumerate}
 
 
 
