@@ -1,1 +1,483 @@
+\documentclass
 
+\usepackage{asmmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+\geometry{margin=1in}
+
+\begin{document}
+
+\begin{flushright}
+CSE 21 Fa26
+Homework 2
+Submitted: 10/12/2026
+\end{flushright}
+
+\begin{center}
+David Washington(200484943), Judah Boyce(200453537), Osinachi Agaranna(200455712), Nick Young(200455733)
+\end{center}
+
+\begin{enumerate}
+
+\item
+\begin{enumerate}
+
+\item How many 7 characte license plates start with a letter or end with a numeral?
+
+Let
+\[
+L = \text{Plates that start with a letter}
+\]
+\[
+N = \text{plates that end with a numeral}
+\]
+
+We want to find $|L \cup N|$.
+
+Using the inclusion-exclusion principle, 
+
+\[
+|L \cup N| = |L| + |N| - |L \cap N|
+\]
+
+There are 26 letter, 10 numerals, and 36 possible character in all.
+
+For plates that start with a letter, the first character has 26 possibilites and the remaining 6 have 36 possibilites.
+
+\[
+|L| = 26 \cdo 36^6
+\]
+
+For plates that end with a numeral, the frist 6 character have 36 possibilites and the last has 10 possibilites.
+
+\[
+|N| = 36^6 \cdot 10
+\]
+
+For plates that start with a letter and end with a numeral, there are 26 choices for the first character, 10 for the last, and 36 for each of the 5 middle characters.
+
+\[
+|L \cap N| = 26 \cdot 36^5 \cdot 10
+\]
+
+Therefore,
+\[
+\boxed{
+|L \cup N|
+=
+26 \cdot 36^6
++ 
+10 \cdot 36^6
+-
+26 \cdot 10 \cdot 36^5
+}
+\]
+
+\item How many 7 character license plates use at least one A, at least one B, and at least one numeral?
+
+Let
+\[
+A = \text{Plates without an A}
+\]
+
+\[
+B = \text {Plates without a B}
+\]
+
+\[
+N = \text{Plates without a numeral}
+\]
+
+We want a plate containing at least one A, one B, and one numeral.
+
+We use the complement and the inclusion-exclusion principle. There are $36^7$ possible plates. The individual sets have sizes 
+
+\[
+|A| = 35^7, \qquad |B| = 35^7
+\]
+
+\[
+|N| = 26^7
+\]
+
+Their pairwise intersections are 
+
+\[
+|A \cap B| = 34^7
+\]
+
+\[
+|A \cap N| = 25^7
+\]
+
+\[
+|B \cap N| = 25^7
+\]
+
+The interesection of all three sets is 
+
+\[
+|A \cap B \cap N| = 24^7
+\]
+
+Using inclusion-exclsuion
+
+\begin{align*}
+|A \cup B \cup N|
+&= |A| + |B| +|N|\\
+&\quad - |A \cap B|\\
+&\quad - |A \cap N|\\
+&\quad - |B \cap N|\\
+&\quad + |A \cap B \cap N|
+\end{align*}
+
+We subtract this from the total possibilites:
+
+\[
+\boxed{
+36^7 -
+\left(
+2(35^7) + 26^7
+- 34^7 - 2(25^7) + 24^7
+\right)
+}
+\]
+
+\item How many 7 character license plates contain only numerals that add up to 10?
+
+We need to the find the number of solutions to 
+
+\[
+x_1 + x_2 + \cdots + x_7 = 10
+\]
+
+where 
+
+\[
+0 \leq x_i \leq 0
+\]
+
+We can use the stars and bars formula to count the solutions
+
+\[
+\binom{n+k-1}{k-1}
+\]
+
+Here, $n=10$ and $k=7$.
+
+\[
+\binom{10+7-1}{7-1} 
+=
+\binom{16}{6}
+\]
+
+However, stars and bars allows individual values greater than 9. 
+
+Since the toal sum is 10, the only invalid cases are there where one digit equals 10
+and the remaining 6 equal 0.
+
+For example,
+
+\[
+(10,0,0,0,0,0,0)
+\]
+
+\[
+(0,10,0,0,0,0,0)
+\]
+
+\[
+\vdots
+\]
+
+There are exactly 7 invalid cases, one for each possible position of 10. We subtract these cases:
+
+\[
+\boxed{
+\binom{16}{6}-7
+}
+\]
+
+\item How many 7 character license plates contain only letters in alphabetical order, with repitions allowed?
+
+We use combination with repition:
+
+\[
+\binom {n+k-1}{k}
+\]
+
+where 
+\[
+n = 26 \text { letters}
+\]
+
+\[
+k = 7 \text { characters}}
+\]
+
+Because the letters must appear in alphabetical order, each selection of 7 letters corresponds to
+exactly one valid license plate.
+
+Substituting
+
+\[
+\binom{26+7-1}{7}
+=
+\binom{32}{7}
+\]
+
+Therefore, 
+
+\[
+\boxed{
+\binom{32}{7}
+}
+\]
+
+\end{enumerate}
+
+\item
+\begin{enumerate}
+
+\item How many different ways cam the museum curator arrange all 9 prints among the 12 rooms?
+
+We have 9 identical prints and 12 different rooms.
+
+We use stars and bars because we are distrbuting identical objects among distinct groups.
+
+Let $x_i$ represent the number of prints placed in room $i$. 
+
+We need
+
+\[
+x_1 + x_2 + \cdots + x_{12} = 9
+\]
+
+where $x_i \geq 0$.
+
+Using stars and bars, 
+
+\[
+\binom{n+k-1}{k-1}
+\]
+
+where $n=9$ and $k=12$.
+
+\[
+\binom{9+12-1}{12-1}
+=
+\binom{20}{11}
+\]
+
+Therefore,
+
+\[
+\boxed{
+\binom{20}{11}
+}
+\]
+
+
+\item How many ways can the museum curator arrange all 9 prints among the 12 rooms so that each
+print is in a different room?
+
+Since all 9 prints are identical and must be placed in different rooms, we only need to choose which 9 of the 
+12 rooms recieve a print, regardless of order.
+
+Therefore,
+
+\[
+\boxed{
+\binom{12}{9}
+}
+\]
+
+
+\item How many ways can the museum curator arrange all 9 prints among the 12 rooms so that at least 3 rooms are non-empty?
+
+We can  use complementary countin.
+
+We begin with all possibile distributions and subtract the ones where only 1 or 2 rooms are non-empty.
+
+From part (a), the total number of distributions is:
+
+\[
+\binom{20}{11}
+\]
+
+First, consider exactly 1 non-empty room.
+
+We chhose 1 of the 12 rooms to contain all 9 prints
+
+\[
+\binom{12}{1} =12
+\]
+
+Next consider exactly 2 non-empty rooms.
+
+We first chhose 2 rooms from the 12
+
+\[
+\binom{12}{2}
+\]
+
+We then distribute the 9 identical prints between those two 
+
+Let $x_1$ and $x_2$ represent the number of prints in each room.
+
+\[
+x_1 + x_2 = 9 
+\]
+
+where $x_1, x_2 \geq 1$.
+
+using stars and bars:
+
+\[
+\binom{9-1}{2-1}
+= 
+\binom{8}{1} 
+\]
+
+Thus, the number of distribution with exactly 2 nonempty rooms is 
+
+\[
+\binom{12}{2}]binom{8}{1}
+\]
+
+Subtracting both invalid cases from the total gives
+
+\[
+\boxed{
+\binom{20}{11}
+-
+!2
+-
+\binom{12}{2}\binom{8}{1}
+}
+\]
+
+% -----------2d goes here--------
+
+
+
+
+
+\item 
+We want to find the number of solutions to 
+
+\[ a_1+a_2+a_3+a_4+a_5+a_6=30.
+\]
+
+\begin{enumerate}
+  \item
+  We are given the restrictions
+  \[a_1\geq1,\ a_2\geq2,\ a_3\geq3,\ a_4\geq4,\ a_5\geq5,\ a_6\geq6.
+  \]
+
+  First, assign each variable its minimu required value.
+  \[
+  1+2+3+4+5+6=21.
+  \]
+
+  This leave $30-21=9$ remaining. Let $x_i=a_i-i$ for $1\leq i\leq6$.
+  Then
+  \[
+  x_1+x_2+x_3+x_4+x_5+x_6=9,
+  \]
+  where each $x_i\geq0$.
+
+  Using 9 stars and 5 bars the number of solutions is:
+
+  \[
+  \boxed{\binom{9+6-1}{6-1}=\binom{14}{5}}.
+  \]
+
+  \item
+  We want at least one variable to be less than or equal to 3.
+
+  We use the complement method by subtracting the solution where every variable is at least 4 from the total number of solution
+
+  Using Stars and Bars, the total number of solution without any restriction is:
+
+  \[ \binom{30+6-1}{6-1}=\binom{35}{5}.
+  \]
+
+  For the complement, each variable must satisfy $a_i\geq4$. Assigning 4 to each variable uses:
+
+  \[ 
+  6*4=24,
+  \]
+  leaving $30-24=6$.
+
+  Let $x_i=a_i-4$. Then
+  \[
+  x_1+x_2+x_3+x_4+x_5+x_6=6,
+  \]
+  where each $x_i\geq0$
+
+  By Stars and Bars, the complement solutins is:
+
+  \[
+  \binom{6+6-1}{6-1}=\binom{11}{5}.
+  \]
+
+  Subtracting these from the total gives the valid solutions:
+  \[
+  \boxed{\binom{35}{5}-\binom{11}{5}}.
+  \]
+
+  \item
+  We are given the restrictions 
+  \[
+  0\leq a_i\leq7
+  \quad \text{for all}1\leq i\leq6.
+  \]
+
+  Use Inclusion-Exclusion to subtract the solutions where at least one variable is greater than or equal to 8.
+
+  No restrictions, using Stars and Bars:
+
+  \[
+  \binom{35}{5}
+  \]
+  solutions.
+
+  Let $A_i$ be the set of solutions where $a_i\geq8$.
+
+  If one variable is at least 8, we assign 8 to that variable, leaving $30-8=22$.
+  There are $\binom{6}{1}$ ways to select the variable:
+
+  \[
+  \binom{6}{1}\binom{22+5}{5}
+  = binom{6}{1}\binom{27}{5}
+  \]
+
+  Now if two variables are at least 8 we are left with $30-16=14$.
+  There are $\binom{6}{2}$ ways:
+  \[
+  \binom{6}{2}\binom{14+5}{5}
+  =\binom{6}{2}\binom{19}{5}.
+  \]
+
+  Moving on to if three variable are at least 8 we are left with $30-24=6$.
+  There are $\binom{6}{3}$ ways:
+   \[
+  \binom{6}{3}\binom{6+5}{5}
+  =\binom{6}{2}\binom{11}{5}.
+  \]
+
+  This is the max case because if four variables are at least 8 we get  $4*8=32>30$.
+
+  Therefore the number of valid solutions is given by:
+
+  \[
+  \boxed{
+  \binom{35}{5}
+  -\binom{6}{1}\binom{27}{5}
+  +\binom{6}{2}\binom{19}{5}
+  -\binom{6}{3}\binom{11}{5}
+  }.
+  \]
+\end{enumerate}
