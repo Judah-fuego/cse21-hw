@@ -1,3 +1,4 @@
+% !TEX root = HW1.tex
 \documentclass{article}
 \usepackage{amsmath}
 \begin{document}
@@ -19,7 +20,7 @@ TSN: 200484943, 200453537, 200455712, 200455733
         \[
             2 + 5 + 8 + \cdots + (3n - 1) = \frac{n(3n + 1)}{2}
         \]
-        First we prove that at $n=1$ the left and right side are equivalent: P(1) = P(1).  When $n = 1$:
+        First we prove the base case: $P(1)$ holds. When $n = 1$:
         \[
           (3(1) - 1) 
           = 2
@@ -49,40 +50,42 @@ TSN: 200484943, 200453537, 200455712, 200455733
           = \frac{3k^2+7k+4}{2}
         \]
 
-      The last equation shows that $P(k+1)$ is true under the assumption that $P(k)$ is also true. Therefore,
+      The last equation shows that $P(k+1)$ is true under the assumption that $P(k)$ is also true. Therefore, for all $n \ge 1$ 
         \[
             2 + 5 + 8 + \cdots + (3n - 1) = \frac{n(3n + 1)}{2}
         \]
-        Assume that for all $n \ge 1$ 
+   
 
       \item Assume for all $n \geq 1$:
       \[
         \prod_{k=1}^{n}\left(1 + \frac{1}{k}\right) = n + 1
       \]
-      First we prove P(k) is true such that at $n=1$ the left and right side are equivalent:
+      First we prove that at $n=1$ the left and right side are equivalent $P(1)$ holds.
       \[
-        \prod_{k=1}^{1}\left(1 + \frac{1}{k}\right) = 1 + 1
+        \prod_{j=1}^{1}\left(1 + \frac{1}{j}\right)
+        = 1 + 1
+        = 2
+      \]
+      and the right side is $1 + 1 = 2$, so both sides match.
+
+      Assuming $P(k)$ is true. For $n \ge 1$, $P(k) \rightarrow P(k+1)$ is again equivalent for the left and right side.
+      RHS $P(k+1)$
+      \[
+        (k+1) + 1 = k + 2
+      \]
+      Since we are assuming $P(k)$, we use the last factor of the product for the LHS and multiply it with the RHS and it should be equivalent to the RHS of $P(k+1)$:
+      \[
+        \prod_{j=1}^{k+1}\left(1+\frac{1}{j}\right)
+        = \left[\prod_{j=1}^{k}\left(1+\frac{1}{j}\right)\right]\left(1+\frac{1}{k+1}\right)
       \]
       \[
-        (1+1) = (1+1)
+        = (k+1)\left(1+\frac{1}{k+1}\right)
       \]
       \[
-       2 = 2
-      \]
-      Since P(k) is true we will now prove that $P(k) \rightarrow P(k+1)$ is again equivalent for the left and right side.
-      LHS:
-      \[
-        = (k+1) + 1
-        =k+2
-      \]
-      RHS and LHS:
-      \[
-        \prod_{k=1}^{n}\left(1 + \frac{1}{k+1}\right) = (k+1)(1+\frac{1}{k+1})
+        = (k+1)\cdot\frac{k+2}{k+1}
       \]
       \[
-       = k+1 + \frac{k+1}{k+1}
-       = k + 1 + 1
-       = k + 2
+        = k+2
       \]
 
       This proves that $P(k+1)$ is true assuming that $P(k)$ is true.
@@ -90,7 +93,7 @@ TSN: 200484943, 200453537, 200455712, 200455733
       \[
         \prod_{k=1}^{n}\left(1+\frac{1}{k}\right)=n+1
       \]
-      for all $n\geq1$.
+      for all $n\geq 1$.
 
     \end{enumerate}
   
@@ -176,10 +179,10 @@ TSN: 200484943, 200453537, 200455712, 200455733
       \]
 
       \item How many ways can the museum curator arrange all 9 paintings among the 12 rooms
-in the museum so that each painting is in a different room?
+      in the museum so that each painting is in a different room?
       This question asks the number of permutations of 9 paintings in 12 rooms.
      
-      Thus the number of ways to place 9 paintings amon 12 rooms in the museum is:
+      Thus the number of ways to place 9 paintings among 12 rooms in the museum is:
       \[
          = P(12,9)
       \] 
@@ -209,7 +212,7 @@ in the museum so that each painting is in a different room?
       such that each room has exactly 3 paintings?
       Given that each room has exactly 3 paintings it means that 3 rooms will be used at a time, so we can think of it in the perspective of those 3 rooms.
       \begin{itemize}
-        \item First you have 12 paintings and you need to choose 3 rooms to place them in = $\binom{12}{3}$
+        \item First you have 12 rooms and you need to choose 3 rooms = $\binom{12}{3}$
         \item For the first room you have 9 paintings now and need 3 = $\binom{9}{3}$
         \item Same thing for the second =  $\binom{6}{3}$
         \item Same thing for the third  =  $\binom{3}{3}$
