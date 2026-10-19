@@ -79,12 +79,161 @@ David Washington(200484943), Judah Boyce(200453537), Osinachi Agaranna(200455712
         \end{enumerate}
         Now we need to find the probability $P(N|W)$. Using Bayes Theorem we can rewrite the equation into values that we know
         \[ P(N|W) = \frac{P(W|N) P(N)}{P(W)} \]    
-        \[ P(N|W) = \frac{(0.9)^8 \cdot \frac{1}{3}}{\frac{1}{3} \cdot (0.5^8 + 0.5^8 + 0.9^8)} \]   
+        \[ P(N|W) = \frac{(0.9)^8 \cdot \frac{1}{3}}{\frac{1}{3} \cdot (0.5^8 + 0.5^8 + 0.9^8)} \]
+        The $\frac{1}{3}$ cancels, and $(0.9)^8 = 0.43046721$ and $(0.5)^8 = 0.00390625$, so
+        \[
+        P(N|W) = \frac{0.43046721}{2(0.00390625) + 0.43046721} \approx 0.982
+        \]
 
         \item  If you decide to stay at the same slot machine (after winning 8 games), what is the probability that your next game results in a win?
-        
+        The probability that you win your next game depends upon the machine you are at as well as the probability that you are at the machine after winning 8 straight games.
+        Let event $A$ be that you win your next game. Then
+        \[P(A) = P(N|W)(0.9) + (1-P(N|W))(0.5)\]
+        Using $P(N|W) \approx 0.982$,
+        \[
+        P(A) \approx (0.982)(0.9) + (1-0.982)(0.5) \approx 0.893
+        \]
+
     \end{enumerate}
-    
+
+    \item Partnership Dominos is a game that involves 4 players and a Double-6 Domino set.
+    A Double-6 Domino set is a set of 28 different tiles such that each tile has two values, one on each side. The values are given by a number of pips or dots to signify the value. There is one domino for each combination of values from 0 through 6 (including doubles).
+    At the start of the round, each of the 4 players (North, South, East, West) gets 7 tiles.
+    \begin{enumerate}
+        \item What is the probability that North has the double-six tile (the tile with 6 pips on either side)?
+
+        There is 1 double-six tile out of 28, and North gets 7 tiles.
+        \[
+        \frac{1}{28} \cdot 7 = \frac{7}{28} = \frac{1}{4} = 0.25
+        \]
+
+        \item What is the probability that North has at least one double? (there are 7 doubles)
+
+        There are 7 doubles and 21 non-doubles.
+        \[
+        P(\text{no doubles}) = \left(\frac{21}{28}\right)^{7} \approx 0.133
+        \]
+        \[
+        P(\text{at least 1 double}) = 1 - \left(\frac{21}{28}\right)^{7} \approx 0.867
+        \]
+
+        \item What is the probability that North has at least one domino with a 6 and at least one domino with a blank?
+
+        There are 7 dominos with a 6 and 7 dominos with a blank.
+        \[
+        \binom{21}{7} = 116280
+        \]
+        is the number of hands with no 6, and also the number of hands with no blank.
+        Hands with neither a 6 nor a blank:
+        \[
+        \binom{15}{7} = 6435
+        \]
+        Total hands:
+        \[
+        \binom{28}{7} = 1184040
+        \]
+        Using inclusion-exclusion,
+        \[
+        1184040 - (116280 + 116280) + 6435 = 957915
+        \]
+        \[
+        P = \frac{957915}{1184040} \approx 0.809
+        \]
+
+        \item What is the probability that North and South together hold all 7 tiles containing the value 6?
+
+        North and South together have 14 tiles, so the total number of hands they can hold is
+        \[
+        \binom{28}{14} = 40116600
+        \]
+        After taking all 7 tiles with a 6, there are $28 - 7 = 21$ tiles left, and we still need 7 more tiles.
+        \[
+        \binom{21}{7} = 116280
+        \]
+        \[
+        P = \frac{116280}{40116600} \approx 0.00290
+        \]
+
+        \item A ``Bad hand'' is a set of 7 dominos with at least four doubles. What is the probability that one of the players has a bad hand?
+
+        There are 7 doubles. The ways for one player to have at least 4 doubles are
+        \[
+        \binom{7}{4}\binom{21}{3} + \binom{7}{5}\binom{21}{2} + \binom{7}{6}\binom{21}{1} + \binom{7}{7}\binom{21}{0}
+        \]
+        \[
+        = 46550 + 4410 + 147 + 1 = 51108
+        \]
+        Total hands for one player:
+        \[
+        \binom{28}{7} = 1184040
+        \]
+        \[
+        \frac{51108}{1184040} \approx 0.0432
+        \]
+        For any of the 4 players,
+        \[
+        0.0432 \cdot 4 \approx 0.173
+        \]
+    \end{enumerate}
+
+    \item Fantasy Five is a lottery game you can play for \$1. The way it works is, from the set $\{1, 2, 3, \ldots, 39\}$, you select a subset of 5 different numbers.
+    The lottery commissioner also selects 5 winning numbers uniformly at random.
+    You win money based on how many of your numbers match with the winning numbers.
+    Here are the payouts:
+    \begin{itemize}
+        \item 5 out of 5 pays \$67000
+        \item 4 out of 5 pays \$401
+        \item 3 out of 5 pays \$15
+        \item 2 out of 5 pays \$1
+        \item 1 out of 5 pays \$0
+        \item 0 out of 5 pays \$0
+    \end{itemize}
+    \begin{enumerate}
+        \item What is the expected number of matches you make with the winning numbers?
+
+        You pick 5 numbers, there are 5 winning numbers, and 39 numbers total.
+        \[
+        P(\text{a number matches}) = \frac{5}{39} \approx 0.128
+        \]
+        Using a binomial distribution,
+        \[
+        E(\text{matches}) = 0.128 \cdot 5 \approx 0.641
+        \]
+
+        \item What is the expected profit you make from playing this game?
+
+        The game costs \$1. The number of ways to choose 5 numbers is
+        \[
+        \binom{39}{5} = 575757
+        \]
+        \[
+        P(\text{match 5}) = \frac{\binom{5}{5}\binom{34}{0}}{\binom{39}{5}} = \frac{1}{575757}
+        \]
+        \[
+        P(\text{match 4}) = \frac{\binom{5}{4}\binom{34}{1}}{575757} = \frac{170}{575757}
+        \]
+        \[
+        P(\text{match 3}) = \frac{\binom{5}{3}\binom{34}{2}}{575757} = \frac{5610}{575757}
+        \]
+        \[
+        P(\text{match 2}) = \frac{\binom{5}{2}\binom{34}{3}}{575757} = \frac{59840}{575757}
+        \]
+        Expected profit is the payout from 5, 4, 3, and 2 matches, minus \$1.
+        \[
+        67000\left(\frac{1}{575757}\right) + 401\left(\frac{170}{575757}\right) + 15\left(\frac{5610}{575757}\right) + \frac{59840}{575757} - 1 \approx -\$0.52
+        \]
+
+        \item What is the expected number of times you must play this game before and including your first win of at least one dollar?
+
+        Winning at least \$1 means matching 2, 3, 4, or 5 numbers.
+        \[
+        \frac{59840}{575757} + \frac{5610}{575757} + \frac{170}{575757} + \frac{1}{575757} = \frac{65621}{575757} \approx 0.114
+        \]
+        \[
+        E(\text{games}) = \frac{1}{0.114} \approx 8.77
+        \]
+    \end{enumerate}
+
 \end{enumerate}
 
 \end{document}
