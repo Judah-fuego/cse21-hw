@@ -358,79 +358,83 @@ Subtracting both invalid cases from the total gives
 }
 \]
 
-% -----------2d goes here--------
-/item How many ways can the museum curator arrange all 9 prints among the 12 rooms such that at
-least one room has exactly 3 prints?
+\item How many ways can the museum curator arrange all 9 prints among the 12 rooms such that at least one room has at least 3 prints?
 
-We use the inclusion-exclusion principle.
+We can use complementary counting.
 
-Let $A_i$ be the set of distributions where room $i$ contains exactly 3 prints.
+We begin with all possible distributions and subtract the ones where every room has at most 2 prints.
 
-We want to find
+From part (a), the total number of distributions is:
 
 \[
-\left|\bigcup_{i=1}^{12} A_i\right|
+\binom{20}{11}
 \]
 
-First, consider one room containing exactly 3 prints. 
+First, consider one room with at least 3 prints.
 
-We choose 1 of the 12 rooms.
+We choose 1 of the 12 rooms and put 3 prints in it. The other 6 prints can go in any of the 12 rooms.
 
-The remaining 6 prints are distributed among the 11 other rooms.
-
-Using stars and bars,
+using stars and bars:
 
 \[
-\binom{6+11-1}{11-1}
+\binom{6+12-1}{12-1}
 =
-\binom{16}{10}
+\binom{17}{11}
 \]
 
-Thus, the first term is
+So the number of distributions with one fixed room getting at least 3 prints is
 
 \[
-\binom{12}{1}\binom{16}{10}
+\binom{12}{1}\binom{17}{11}
 \]
 
-Next, consider two rooms that each contain exactly 3 prints.
+Next consider two rooms with at least 3 prints each.
 
-We choose 2 of the 12 rooms.
+We choose 2 of the 12 rooms and put 3 prints in each. That uses 6 prints, so 3 are left for the 12 rooms.
 
-The remaining 3 prints are distributed among the other 10 rooms.
-
-Using stars and bars,
+using stars and bars:
 
 \[
-\binom{3+10-1}{10-1}
+\binom{3+12-1}{12-1}
 =
-\binom{12}{9}
+\binom{14}{11}
 \]
 
-Thus, the second term is 
+So this case is
 
 \[
-\binom{12}{2}\binom{12}{9}
+\binom{12}{2}\binom{14}{11}
 \]
 
-Finally, consider three rooms that contain exactly 3 prints.
+Next consider three rooms with at least 3 prints each.
 
-Since all 9 prints have been used the remaining rooms are empty
-
-We choose 3 of the 12 rooms
+We choose 3 of the 12 rooms and put 3 prints in each. That uses all 9 prints, so there is only 1 way to place what is left.
 
 \[
 \binom{12}{3}
 \]
 
-There can't be four rooms with exactly 3 prints because that would require 12 prints.
+We can't have 4 rooms with at least 3 prints each, since that would take 12 prints.
 
-Using inclusion-exclusion, we add the single room cases, subtract double room, and add back the triple room cases:
+Using inclusion-exclusion, the number of distributions where every room has at most 2 prints is
+
+\[
+\binom{20}{11}
+-
+\binom{12}{1}\binom{17}{11}
++
+\binom{12}{2}\binom{14}{11}
+-
+\binom{12}{3}
+\]
+
+Subtracting this from the total gives
 
 \[
 \boxed{
-\binom{12}{1}\binom{16}{10}
+\binom{12}{1}\binom{17}{11}
 -
-\binom{12}{2}\binom{12}{9}
+\binom{12}{2}\binom{14}{11}
 +
 \binom{12}{3}
 }
@@ -449,8 +453,6 @@ Therefore, we use combination to choose the 3 rooms:
 \binom{12}{3}
 }
 \]
-
-\end{enumerate}
 
 \end{enumerate}
 
