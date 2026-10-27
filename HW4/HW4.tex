@@ -1,0 +1,252 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+\geometry{margin=1in}
+
+\begin{document}
+
+\begin{flushright}
+CSE 21 Fa26\\
+Homework 4\\
+Submitted: 10/26/2026
+\end{flushright}
+
+\begin{center}
+David Washington(200484943), Judah Boyce(200453537),\\
+Osinachi Agaranna(200455712), Nick Young(200455733)
+\end{center}
+
+\begin{enumerate}
+    \item Let $(a_1, \ldots, a_n)$ be a random permutation of the elements $\{1, \ldots, n\}$ selected uniformly at random. Compute each expected value using linearity of expectation.
+
+    \begin{enumerate}
+        \item Compute the expected number of indices that have the property that $i < a_i$.
+
+        Let $X_i$ be the indicator that is $1$ if $i < a_i$ and $0$ otherwise, and let $X = \sum_{i=1}^{n} X_i$.
+        The value $a_i$ is equally likely to be any of the $n$ elements, and the ones bigger than $i$ are $i+1, \ldots, n$, so there are $n-i$ of them.
+        \[
+        P(X_i = 1) = \frac{n-i}{n}
+        \]
+        By linearity of expectation,
+        \[
+        E[X] = \sum_{i=1}^{n} E[X_i] = \sum_{i=1}^{n} \frac{n-i}{n} = \frac{1}{n}\sum_{i=1}^{n}(n-i)
+        \]
+        The sum $\sum_{i=1}^{n}(n-i)$ is $0 + 1 + \cdots + (n-1) = \dfrac{(n-1)n}{2}$, so
+        \[
+        E[X] = \frac{1}{n} \cdot \frac{(n-1)n}{2} = \frac{n-1}{2}
+        \]
+
+        \item Compute the expected number of interior elements $a_i$ such that $a_{i-1} < a_i < a_{i+1}$.
+
+        An interior index is an index $i$ with $2 \le i \le n-1$, so there are $n-2$ of them.
+        Let $X_i$ be $1$ if $a_{i-1} < a_i < a_{i+1}$ and $0$ otherwise.
+        The three values $a_{i-1}, a_i, a_{i+1}$ are three distinct numbers in a random permutation, so all $3! = 6$ orders are equally likely, and only one of those orders has $a_{i-1} < a_i < a_{i+1}$.
+        \[
+        P(X_i = 1) = \frac{1}{6}
+        \]
+        \[
+        E[X] = \sum_{i=2}^{n-1} \frac{1}{6} = (n-2)\cdot\frac{1}{6} = \frac{n-2}{6}
+        \]
+
+        \item Compute the expected number of swaps. A swap is a pair of elements $(a_i, a_j)$ such that $a_i = j$ and $a_j = i$ and $i < j$.
+
+        For each pair $i < j$, let $X_{ij}$ be $1$ if $a_i = j$ and $a_j = i$, and $0$ otherwise.
+        Position $i$ is equally likely to be any of the $n$ values, so $P(a_i = j) = \dfrac{1}{n}$.
+        After that, position $j$ is equally likely to be any of the remaining $n-1$ values, so $P(a_j = i \mid a_i = j) = \dfrac{1}{n-1}$.
+        \[
+        P(X_{ij} = 1) = \frac{1}{n} \cdot \frac{1}{n-1} = \frac{1}{n(n-1)}
+        \]
+        There are $\binom{n}{2}$ pairs with $i < j$, so
+        \[
+        E[X] = \binom{n}{2} \cdot \frac{1}{n(n-1)} = \frac{n(n-1)}{2} \cdot \frac{1}{n(n-1)} = \frac{1}{2}
+        \]
+    \end{enumerate}
+
+    \item
+    \begin{enumerate}
+        \item An art museum with 12 different rooms just got a shipment of 9 new different paintings. The museum curator puts the paintings in the rooms uniformly at random (each of the $12^9$ arrangements is equally likely).
+
+        \begin{enumerate}
+            \item Compute the expected number of rooms without any paintings.
+
+            Let $X_i$ be $1$ if room $i$ has no paintings and $0$ otherwise.
+            Each painting is placed independently, and it misses room $i$ with probability $\dfrac{11}{12}$.
+            All 9 paintings miss room $i$ with probability
+            \[
+            P(X_i = 1) = \left(\frac{11}{12}\right)^9
+            \]
+            There are 12 rooms, so
+            \[
+            E[X] = \sum_{i=1}^{12} \left(\frac{11}{12}\right)^9 = 12\left(\frac{11}{12}\right)^9 \approx 5.48
+            \]
+
+            \item Compute the expected number of rooms with exactly 1 painting.
+
+            Let $X_i$ be $1$ if room $i$ has exactly one painting and $0$ otherwise.
+            We choose which 1 of the 9 paintings goes in room $i$, that painting lands in room $i$ with probability $\dfrac{1}{12}$, and each of the other 8 paintings lands in one of the other 11 rooms.
+            \[
+            P(X_i = 1) = 9 \cdot \frac{1}{12} \cdot \left(\frac{11}{12}\right)^8
+            \]
+            \[
+            E[X] = 12 \cdot 9 \cdot \frac{1}{12} \cdot \left(\frac{11}{12}\right)^8 = 9\left(\frac{11}{12}\right)^8 \approx 4.49
+            \]
+        \end{enumerate}
+
+        \item An art museum with 12 different rooms just got a shipment of 9 indistinguishable prints. The museum curator puts the prints in the rooms uniformly at random (each of the $\binom{9+12-1}{12-1}$ arrangements is equally likely).
+
+        These arrangements are the non-negative integer solutions of $a_1 + a_2 + \cdots + a_{12} = 9$.
+
+        There are $\binom{20}{11}$ such arrangements.
+
+        \begin{enumerate}
+            \item Compute the expected number of rooms without any prints.
+
+            Let $X_i$ be $1$ if room $i$ has no prints and $0$ otherwise.
+            If room $i$ is empty, the 9 prints are placed in the other 11 rooms. The number of ways to do that is
+            \[
+            \binom{9+11-1}{11-1} = \binom{19}{10}
+            \]
+            \[
+            P(X_i = 1) = \frac{\binom{19}{10}}{\binom{20}{11}}
+            \]
+            \[
+            \frac{\binom{19}{10}}{\binom{20}{11}} = \frac{19!}{10!\,9!} \cdot \frac{11!\,9!}{20!} = \frac{11}{20}
+            \]
+            \[
+            E[X] = \sum_{i=1}^{12} \frac{11}{20} = 12 \cdot \frac{11}{20} = \frac{33}{5} = 6.6
+            \]
+
+            \item Compute the expected number of rooms with exactly 1 print.
+
+            Let $X_i$ be $1$ if room $i$ has exactly one print and $0$ otherwise.
+            If room $i$ has exactly one print, the remaining 8 prints are placed in the other 11 rooms. The number of ways to do that is
+            \[
+            \binom{8+11-1}{11-1} = \binom{18}{10}
+            \]
+            \[
+            P(X_i = 1) = \frac{\binom{18}{10}}{\binom{20}{11}}
+            \]
+            \[
+            \frac{\binom{18}{10}}{\binom{20}{11}} = \frac{18!}{10!\,8!} \cdot \frac{11!\,9!}{20!} = \frac{11 \cdot 9}{20 \cdot 19} = \frac{99}{380}
+            \]
+            \[
+            E[X] = 12 \cdot \frac{99}{380} = \frac{297}{95}
+            \]
+        \end{enumerate}
+    \end{enumerate}
+
+    \item
+    \begin{enumerate}
+        \item What is the expected number of coin flips of a fair coin until you get two consecutive H's?
+
+        We first divide the possible starting outcomes into 3 cases:
+        \[
+        P(T) = \frac{1}{2}, \qquad P(HT) = \frac{1}{4}, \qquad P(HH) = \frac{1}{4}.
+        \]
+        Now we find each conditional expected value:
+        \begin{itemize}
+            \item $E[X \mid T] = 1 + E[X]$: we used 1 flip but have to start over.
+            \item $E[X \mid HT] = 2 + E[X]$: used 2 flips but have to start over.
+            \item $E[X \mid HH] = 2$: used 2 flips and the goal was achieved.
+        \end{itemize}
+        Using
+        \[
+        E[X] = E[X \mid T]P(T) + E[X \mid HT]P(HT) + E[X \mid HH]P(HH)
+        \]
+        gives
+        \[
+        E[X] = \frac{1}{2}(1 + E[X]) + \frac{1}{4}(2 + E[X]) + \frac{1}{4}(2).
+        \]
+        \[
+        E[X] = \frac{3}{2} + \frac{3}{4}E[X]
+        \]
+        \[
+        \frac{1}{4}E[X] = \frac{3}{2}
+        \]
+        \[
+        E[X] = 6
+        \]
+
+        \item What is the expected number of coin flips until you get HHH?
+
+        First find the probability of the 4 cases:
+        \[
+        P(T) = \frac{1}{2}, \qquad P(HT) = \frac{1}{4}, \qquad P(HHT) = \frac{1}{8}, \qquad P(HHH) = \frac{1}{8}.
+        \]
+        Now find each conditional expected value:
+        \begin{itemize}
+            \item $E[X \mid T] = 1 + E[X]$: 1 flip, start over.
+            \item $E[X \mid HT] = 2 + E[X]$: 2 flips and start over.
+            \item $E[X \mid HHT] = 3 + E[X]$: 3 flips, start over.
+            \item $E[X \mid HHH] = 3$: goal achieved after 3 flips.
+        \end{itemize}
+        \[
+        E[X] = \frac{1}{2}(1 + E[X]) + \frac{1}{4}(2 + E[X]) + \frac{1}{8}(3 + E[X]) + \frac{1}{8}(3)
+        \]
+        \[
+        E[X] = \frac{7}{4} + \frac{7}{8}E[X]
+        \]
+        \[
+        \frac{1}{8}E[X] = \frac{7}{4}
+        \]
+        \[
+        E[X] = 14
+        \]
+    \end{enumerate}
+
+    \item An ideal hash function from $\{1, \ldots, m\}$ to $\{1, \ldots, n\}$ is a function selected uniformly at random from the set of all functions with that domain and codomain.
+
+    \begin{enumerate}
+        \item Let $H$ be an ideal hash function from $\{1, \ldots, m\}$ to $\{1, \ldots, n\}$. What is the expected number of collisions? A collision is a pair of domain elements $i < j$ such that $H(i) = H(j)$.
+
+        \[
+        X_{ij} =
+        \begin{cases}
+        1 & \text{if } H(i) = H(j) \\
+        0 & \text{otherwise}
+        \end{cases}
+        \]
+        Let $X = \sum_{1 \le i < j \le m} X_{ij}$, so
+        \[
+        E[X] = \sum_{1 \le i < j \le m} E[X_{ij}] = \sum_{1 \le i < j \le m} P(H(i) = H(j)).
+        \]
+        For $m$ distinct inputs we have $\binom{m}{2}$ pairs.
+        \[
+        P(H(i) = H(j)) = \frac{n}{n^2} = \frac{1}{n}
+        \]
+        \[
+        E[X] = \binom{m}{2}\frac{1}{n}
+        \]
+
+        \item Let $H$ be an ideal hash function from $\{1, \ldots, m\}$ to $\{1, \ldots, n\}$. What is the expected number of codomain values that do not get mapped to?
+
+        \[
+        X_j =
+        \begin{cases}
+        1 & \text{if no input hashes to } j \\
+        0 & \text{otherwise}
+        \end{cases}
+        \]
+        Since there are $n$ possible hash values,
+        \[
+        E[X] = n\,P(X_1 = 1).
+        \]
+        For each particular hash value $j$, each input avoids it with probability
+        \[
+        P(H(i) \ne j) = 1 - \frac{1}{n}.
+        \]
+        The probability that all $m$ inputs avoid $j$ is
+        \[
+        P(X_j = 1) = \left(1 - \frac{1}{n}\right)^m.
+        \]
+        \[
+        E[X] = n\left(1 - \frac{1}{n}\right)^m
+        \]
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{document}
