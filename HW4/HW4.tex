@@ -25,43 +25,43 @@ Osinachi Agaranna(200455712), Nick Young(200455733)
     \begin{enumerate}
         \item Compute the expected number of indices that have the property that $i < a_i$.
 
-        Let $X_i$ be the indicator that is $1$ if $i < a_i$ and $0$ otherwise, and let $X = \sum_{i=1}^{n} X_i$.
-        The value $a_i$ is equally likely to be any of the $n$ elements, and the ones bigger than $i$ are $i+1, \ldots, n$, so there are $n-i$ of them.
+        Let $X_i$ be 1 if $i < a_i$ and 0 otherwise, and let $X = \sum_{i=1}^{n} X_i$.
+        $a_i$ is equally likely to be any of the $n$ numbers. The ones bigger than $i$ are $i+1, \ldots, n$, so there are $n-i$ of them.
         \[
         P(X_i = 1) = \frac{n-i}{n}
         \]
-        By linearity of expectation,
+        Using linearity of expectation,
         \[
         E[X] = \sum_{i=1}^{n} E[X_i] = \sum_{i=1}^{n} \frac{n-i}{n} = \frac{1}{n}\sum_{i=1}^{n}(n-i)
         \]
         The sum $\sum_{i=1}^{n}(n-i)$ is $0 + 1 + \cdots + (n-1) = \dfrac{(n-1)n}{2}$, so
         \[
-        E[X] = \frac{1}{n} \cdot \frac{(n-1)n}{2} = \frac{n-1}{2}
+        \boxed{E[X] = \dfrac{n-1}{2}}
         \]
 
         \item Compute the expected number of interior elements $a_i$ such that $a_{i-1} < a_i < a_{i+1}$.
 
-        An interior index is an index $i$ with $2 \le i \le n-1$, so there are $n-2$ of them.
-        Let $X_i$ be $1$ if $a_{i-1} < a_i < a_{i+1}$ and $0$ otherwise.
-        The three values $a_{i-1}, a_i, a_{i+1}$ are three distinct numbers in a random permutation, so all $3! = 6$ orders are equally likely, and only one of those orders has $a_{i-1} < a_i < a_{i+1}$.
+        An interior index is an $i$ with $2 \le i \le n-1$, so there are $n-2$ of them.
+        Let $X_i$ be 1 if $a_{i-1} < a_i < a_{i+1}$ and 0 otherwise.
+        The three values $a_{i-1}, a_i, a_{i+1}$ are just three different numbers, so all $3! = 6$ orders are equally likely. Only one of those orders has $a_{i-1} < a_i < a_{i+1}$.
         \[
         P(X_i = 1) = \frac{1}{6}
         \]
         \[
-        E[X] = \sum_{i=2}^{n-1} \frac{1}{6} = (n-2)\cdot\frac{1}{6} = \frac{n-2}{6}
+        \boxed{E[X] = (n-2)\cdot\frac{1}{6} = \frac{n-2}{6}}
         \]
 
         \item Compute the expected number of swaps. A swap is a pair of elements $(a_i, a_j)$ such that $a_i = j$ and $a_j = i$ and $i < j$.
 
-        For each pair $i < j$, let $X_{ij}$ be $1$ if $a_i = j$ and $a_j = i$, and $0$ otherwise.
-        Position $i$ is equally likely to be any of the $n$ values, so $P(a_i = j) = \dfrac{1}{n}$.
-        After that, position $j$ is equally likely to be any of the remaining $n-1$ values, so $P(a_j = i \mid a_i = j) = \dfrac{1}{n-1}$.
+        For each pair $i < j$, let $X_{ij}$ be 1 if $a_i = j$ and $a_j = i$, and 0 otherwise.
+        Position $i$ can be any of the $n$ values, so $P(a_i = j) = \dfrac{1}{n}$.
+        Then position $j$ can be any of the remaining $n-1$ values, so $P(a_j = i \mid a_i = j) = \dfrac{1}{n-1}$.
         \[
         P(X_{ij} = 1) = \frac{1}{n} \cdot \frac{1}{n-1} = \frac{1}{n(n-1)}
         \]
         There are $\binom{n}{2}$ pairs with $i < j$, so
         \[
-        E[X] = \binom{n}{2} \cdot \frac{1}{n(n-1)} = \frac{n(n-1)}{2} \cdot \frac{1}{n(n-1)} = \frac{1}{2}
+        \boxed{E[X] = \binom{n}{2} \cdot \frac{1}{n(n-1)} = \frac{1}{2}}
         \]
     \end{enumerate}
 
@@ -72,26 +72,26 @@ Osinachi Agaranna(200455712), Nick Young(200455733)
         \begin{enumerate}
             \item Compute the expected number of rooms without any paintings.
 
-            Let $X_i$ be $1$ if room $i$ has no paintings and $0$ otherwise.
-            Each painting is placed independently, and it misses room $i$ with probability $\dfrac{11}{12}$.
-            All 9 paintings miss room $i$ with probability
+            Let $X_i$ be 1 if room $i$ has no paintings and 0 otherwise.
+            Each painting misses room $i$ with probability $\dfrac{11}{12}$, and the paintings are placed on their own.
+            So all 9 paintings miss room $i$ with probability
             \[
             P(X_i = 1) = \left(\frac{11}{12}\right)^9
             \]
             There are 12 rooms, so
             \[
-            E[X] = \sum_{i=1}^{12} \left(\frac{11}{12}\right)^9 = 12\left(\frac{11}{12}\right)^9 \approx 5.48
+            \boxed{E[X] = 12\left(\frac{11}{12}\right)^9 \approx 5.48}
             \]
 
             \item Compute the expected number of rooms with exactly 1 painting.
 
-            Let $X_i$ be $1$ if room $i$ has exactly one painting and $0$ otherwise.
-            We choose which 1 of the 9 paintings goes in room $i$, that painting lands in room $i$ with probability $\dfrac{1}{12}$, and each of the other 8 paintings lands in one of the other 11 rooms.
+            Let $X_i$ be 1 if room $i$ has exactly one painting and 0 otherwise.
+            We pick which 1 of the 9 paintings goes in room $i$. That painting lands in room $i$ with probability $\dfrac{1}{12}$, and each of the other 8 paintings lands in one of the other 11 rooms.
             \[
             P(X_i = 1) = 9 \cdot \frac{1}{12} \cdot \left(\frac{11}{12}\right)^8
             \]
             \[
-            E[X] = 12 \cdot 9 \cdot \frac{1}{12} \cdot \left(\frac{11}{12}\right)^8 = 9\left(\frac{11}{12}\right)^8 \approx 4.49
+            \boxed{E[X] = 9\left(\frac{11}{12}\right)^8 \approx 4.49}
             \]
         \end{enumerate}
 
@@ -104,36 +104,30 @@ Osinachi Agaranna(200455712), Nick Young(200455733)
         \begin{enumerate}
             \item Compute the expected number of rooms without any prints.
 
-            Let $X_i$ be $1$ if room $i$ has no prints and $0$ otherwise.
-            If room $i$ is empty, the 9 prints are placed in the other 11 rooms. The number of ways to do that is
+            Let $X_i$ be 1 if room $i$ has no prints and 0 otherwise.
+            If room $i$ is empty, the 9 prints go in the other 11 rooms. The number of ways to do that is
             \[
             \binom{9+11-1}{11-1} = \binom{19}{10}
             \]
             \[
-            P(X_i = 1) = \frac{\binom{19}{10}}{\binom{20}{11}}
+            P(X_i = 1) = \frac{\binom{19}{10}}{\binom{20}{11}} = \frac{11}{20}
             \]
             \[
-            \frac{\binom{19}{10}}{\binom{20}{11}} = \frac{19!}{10!\,9!} \cdot \frac{11!\,9!}{20!} = \frac{11}{20}
-            \]
-            \[
-            E[X] = \sum_{i=1}^{12} \frac{11}{20} = 12 \cdot \frac{11}{20} = \frac{33}{5} = 6.6
+            \boxed{E[X] = 12 \cdot \frac{11}{20} = \frac{33}{5}}
             \]
 
             \item Compute the expected number of rooms with exactly 1 print.
 
-            Let $X_i$ be $1$ if room $i$ has exactly one print and $0$ otherwise.
-            If room $i$ has exactly one print, the remaining 8 prints are placed in the other 11 rooms. The number of ways to do that is
+            Let $X_i$ be 1 if room $i$ has exactly one print and 0 otherwise.
+            If room $i$ has exactly one print, the other 8 prints go in the other 11 rooms. The number of ways to do that is
             \[
             \binom{8+11-1}{11-1} = \binom{18}{10}
             \]
             \[
-            P(X_i = 1) = \frac{\binom{18}{10}}{\binom{20}{11}}
+            P(X_i = 1) = \frac{\binom{18}{10}}{\binom{20}{11}} = \frac{99}{380}
             \]
             \[
-            \frac{\binom{18}{10}}{\binom{20}{11}} = \frac{18!}{10!\,8!} \cdot \frac{11!\,9!}{20!} = \frac{11 \cdot 9}{20 \cdot 19} = \frac{99}{380}
-            \]
-            \[
-            E[X] = 12 \cdot \frac{99}{380} = \frac{297}{95}
+            \boxed{E[X] = 12 \cdot \frac{99}{380} = \frac{297}{95}}
             \]
         \end{enumerate}
     \end{enumerate}
@@ -167,7 +161,7 @@ Osinachi Agaranna(200455712), Nick Young(200455733)
         \frac{1}{4}E[X] = \frac{3}{2}
         \]
         \[
-        E[X] = 6
+        \boxed{E[X] = 6}
         \]
 
         \item What is the expected number of coin flips until you get HHH?
@@ -193,7 +187,7 @@ Osinachi Agaranna(200455712), Nick Young(200455733)
         \frac{1}{8}E[X] = \frac{7}{4}
         \]
         \[
-        E[X] = 14
+        \boxed{E[X] = 14}
         \]
     \end{enumerate}
 
@@ -218,7 +212,7 @@ Osinachi Agaranna(200455712), Nick Young(200455733)
         P(H(i) = H(j)) = \frac{n}{n^2} = \frac{1}{n}
         \]
         \[
-        E[X] = \binom{m}{2}\frac{1}{n}
+        \boxed{E[X] = \binom{m}{2}\frac{1}{n}}
         \]
 
         \item Let $H$ be an ideal hash function from $\{1, \ldots, m\}$ to $\{1, \ldots, n\}$. What is the expected number of codomain values that do not get mapped to?
@@ -243,7 +237,7 @@ Osinachi Agaranna(200455712), Nick Young(200455733)
         P(X_j = 1) = \left(1 - \frac{1}{n}\right)^m.
         \]
         \[
-        E[X] = n\left(1 - \frac{1}{n}\right)^m
+        \boxed{E[X] = n\left(1 - \frac{1}{n}\right)^m}
         \]
     \end{enumerate}
 
