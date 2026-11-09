@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+\geometry{margin=1in}
+
+\begin{document}
+
+\begin{flushright}
+CSE 21 Fa26\\
+Homework 5\\
+Submitted: 11/09/2026
+\end{flushright}
+
+\begin{center}
+David Washington(200484943), Judah Boyce(200453537),\\
+Osinachi Agaranna(200455712), Nick Young(200455733)
+\end{center}
+
+\section*{Problem 1}
+\subsection*{(a) Trace of FunctionSolver( $x^2-x-1$, $4$, $0.0625$)}
+Here $2e=0.125$ and $f(v)= v^2-v-1$. The entries in the last three columns shows the updated values after the iteration. 
+\begin{center}\small
+\begin{tabular}{c c r c r r r}
+\toprule
+Iteration & $hi-lo>2e$ & $f(v)$ & Sign & $lo$ & $hi$ & $v$ \\
+\midrule
+0 & --- & --- & --- & 0 & 4 & 2 \\
+1 & True & $1$ & $>$ & 0 & 2 & 1 \\
+2 & True & $-1$ & $<$ & 1 & 2 & 1.5 \\
+3 & True & $-0.25$ & $<$ & 1.5 & 2 & 1.75 \\
+4 & True & $0.3125$ & $>$ & 1.5 & 1.75 & 1.625 \\
+5 & True & $0.015625$ & $>$ & 1,5 & 1.625 & 1.5625 \\
+6 $ False & --- & --- & 1.5 & 1.625 & 1.5625 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent\textbf{Return:} $1.5625$. \par
+\subsection*{(b) Loop invariant}
+\textbf{Claim:} After each iteration, $lo\le r\le hi$, where $f(r)=0$. \\
+\textbf{Base case:} Before the first iteration, the algorithm sets $lo=0$ and $hi=n$. The problem states $0<r<n$. Therefore $lo=0\le r\le n=hi$, so the invariant holds before the loop begins.\\
+\textbf{Inductive hypothesis:} Suppose that after $t$ iterations, $lo\le r\le hi$. We must show the invariant remains true after iteration $t+1$.\\
+\textbf{Inductive Step:} Set $v=(lo+hi)/2$. Since $lo\le r\le hi$, consider the following cases.
+\begin{itemize}
+\item If $f(v)=0$, then $v=r$ and the algorithm returns the root. 
+\item If $f(v)<0$, because $f$ is increasing and $f(r)=0$, we have $v<r$. The algorithm sets $lo=v$, so $lo\le r\le hi$ remains true.
+\item If $f(v)>0$, because $f$ is increasing and $f(r)=0$, we have $v<r$. The algorithm sets $hi=v$, so $lo\le r\le hi$ remains true.
+\end{itemize}
+In every case in which the algoritm continues, th root remians between $lo$ and $hi$. Therefore, by inductiion, $lo\le r\le hi$ holds after every iteration.
+\section*{Problem 2}
+
+\section*{Problem 3}
+\subsection*{(a)}
+The total number of prints is
+\begin{align*} 
+\sum_
