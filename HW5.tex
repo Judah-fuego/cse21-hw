@@ -50,9 +50,49 @@ Iteration & $hi-lo>2e$ & $f(v)$ & Sign & $lo$ & $hi$ & $v$ \\
 \end{itemize}
 In every case in which the algoritm continues, th root remians between $lo$ and $hi$. Therefore, by inductiion, $lo\le r\le hi$ holds after every iteration.
 \section*{Problem 2}
+\noindent\textbf{QueueSort:} Initially, $Q=([a_1],[a_2],\ldots,[a_n])$. While $|Q|\geq 2$, dequeue the first two sorted lists, merge them, and enqueue the result.
+\begin{enumerate}[label=\textbf{(\alph*)},leftmargin=*]
+\item \textbf{Prove the loop invariant using induction.}
+
+\textbf{Invariant:} After each iteration, every list in $Q$ is sorted.
+
+\textbf{Base case:} Initially,
+\[
+Q=([a_1],[a_2],\ldots,[a_n]).
+\]
+Every list contains exactly one element. A single-element list is automatically sorted. Therefore, the invariant holds before the loop begins.
+\textbf{Inductive hypothesis:} Suppose that after $t$ iterations, every list in $Q$ is sorted.
+\textbf{Inductive step:} During iteration $t+1$, the algorithm removes the first two lists from $Q$. By the inductive hypothesis, both lists are sorted. The \textsc{Merge} subroutine  combines there two lists into a sorted list. The resulting list is added to $Q$, while all remaining lists stay unchanged and sorted. Therefore, every list in $Q$ remains sorted after iteration $t+1$.
+Thus, by induction, the loop invariant  holds after each iteration.
+
+Initially, $S$ contains $n$ lists. Each iteration remains two lists and adds onem decreasing the number of lists by one. Thus, after $n-1$ iterations (for $n\geq 1$, exactly one list remains and the loop terminates.
+By the loop invariant, that list is sorted. Because \textsc{Merge} combines its input without adding or removing elements, the final lists contains exactly the original input elements. Therefore, QueueSort correctly sorts the input.
 
 \section*{Problem 3}
 \subsection*{(a)}
 The total number of prints is
 \begin{align*} 
-\sum_
+\sum_{i=1}^{n}(n+1)
+&=\sum_{i=1}^{n}n+\sum_{i=1}^{n}i\\
+&=n^2+\frac{n(n+1)}{2}\\
+&=\frac{2n^2+n^2+n}{2}\\
+&=\boxed{\frac(3n^2+n}{2}}=\boxed{\Theta(n^2)}.
+\end{align*}
+\subsection*{(b)}
+For each $i$, the inner loop runs $2n-2i+1$ times. Thus
+\begin{align*}
+\sum_{i=1}^{n}{2n-2i+1) 
+&=\sum_{i=1}^{n}(2n+1)-2\sum_{i=1}^{n}i\\
+&=n(2n+1)-2\left(\frac{n(n+1)}{2}\right)\\
+&=2n^2+n-n^2-n\\
+&=\boxed{n^2}=\boxed{\Theta(n^2)}.
+\end{align*}
+\subsection*{(c)}
+The algorithm prints once for every choice of three distinct indices $1\;e i<j<k\le n$. Hence
+\begin{align*}
+\binom{n}{3}
+&=\frac{n!}{3!(n-3)!}\\
+&=\frac{n(n-1)(n-2)}{6}\\
+&=\boxed{\frac{n^3-3n^2+2n}{6}=\boxed{\Theta(n^3)}.
+\end{align*}
+\end{document}
