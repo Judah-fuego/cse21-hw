@@ -1,0 +1,272 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+
+\begin{flushright}
+CSE 21 Fall 2026\\
+Homework 6\\
+Submitted: 11/16/2026
+\end{flushright}
+
+\begin{center}
+David Washington(200484943), Judah Boyce(200453537),\\
+Osinachi Agaranna(200455712), Nick Young(200455733)
+\end{center}
+
+\section*{Problem 1}
+
+\subsection*{(a)}
+
+The recurrence is $H(0)=0$ and $H(n)=2H(n-1)+2^{n-1}$ for $n\ge 1$.
+
+Substitute the recurrence for $H(n-1)$:
+\begin{align*}
+H(n)
+&= 2H(n-1)+2^{n-1}\\
+&= 2\bigl(2H(n-2)+2^{n-2}\bigr)+2^{n-1}\\
+&= 2^{2}H(n-2)+2\cdot 2^{n-2}+2^{n-1}\\
+&= 2^{2}H(n-2)+2^{n-1}+2^{n-1}\\
+&= 2^{2}H(n-2)+2\cdot 2^{n-1}.
+\end{align*}
+
+Do the same for $H(n-2)$:
+\begin{align*}
+H(n)
+&= 2^{2}\bigl(2H(n-3)+2^{n-3}\bigr)+2\cdot 2^{n-1}\\
+&= 2^{3}H(n-3)+2^{2}\cdot 2^{n-3}+2\cdot 2^{n-1}\\
+&= 2^{3}H(n-3)+2^{n-1}+2\cdot 2^{n-1}\\
+&= 2^{3}H(n-3)+3\cdot 2^{n-1}.
+\end{align*}
+
+The pattern after $k$ substitutions, for $1\le k\le n$, is
+\[
+H(n)=2^{k}H(n-k)+k\cdot 2^{n-1}.
+\]
+
+Set $k=n$. Then $H(n-k)=H(0)=0$, so
+\[
+H(n)=2^{n}H(0)+n\cdot 2^{n-1}=n\cdot 2^{n-1}.
+\]
+
+As a check, the recurrence gives $H(1)=2H(0)+2^{0}=1$, and the closed form gives $1\cdot 2^{0}=1$.
+
+\[
+\boxed{H(n)=n\cdot 2^{n-1}}
+\]
+
+\subsection*{(b)}
+
+The recurrence is $J(0)=0$ and $J(n)=6J(n-1)+3$ for $n\ge 1$.
+
+Substitute the recurrence for $J(n-1)$, and then for $J(n-2)$:
+\begin{align*}
+J(n)
+&= 6J(n-1)+3\\
+&= 6\bigl(6J(n-2)+3\bigr)+3\\
+&= 6^{2}J(n-2)+6\cdot 3+3\\
+&= 6^{2}\bigl(6J(n-3)+3\bigr)+6\cdot 3+3\\
+&= 6^{3}J(n-3)+6^{2}\cdot 3+6\cdot 3+3.
+\end{align*}
+
+After $k$ substitutions, the constant terms are three times a geometric series:
+\[
+J(n)=6^{k}J(n-k)+3\sum_{i=0}^{k-1}6^{i}.
+\]
+
+Set $k=n$. Then $J(0)=0$, and the geometric sum is
+\[
+\sum_{i=0}^{n-1}6^{i}=\frac{6^{n}-1}{6-1}=\frac{6^{n}-1}{5}.
+\]
+Therefore
+\[
+J(n)=3\cdot\frac{6^{n}-1}{5}=\frac{3(6^{n}-1)}{5}.
+\]
+
+\[
+\boxed{J(n)=\dfrac{3(6^{n}-1)}{5}}
+\]
+
+\section*{Problem 2}
+
+Throughout, $\binom{x}{2}=x(x-1)/2$. Let $R(x)$ be the number of recursive calls made while evaluating \textsc{Choose2}$(x)$. The initial call is not counted, so $R(2)=0$.
+
+\subsection*{(a)}
+
+\textbf{Claim.} For every integer $x\ge 2$, \textsc{Choose2}$(x)=\binom{x}{2}$.
+
+\textbf{Proof by strong induction on $x$.}
+
+\textbf{Base case.} If $x=2$, the algorithm returns $1$. Also $\binom{2}{2}=2\cdot 1/2=1$.
+
+\textbf{Inductive hypothesis.} Fix an integer $x>2$, and assume \textsc{Choose2}$(t)=\binom{t}{2}$ for every integer $t$ with $2\le t<x$.
+
+\textbf{Inductive step, $x$ odd.} Then $x\ge 3$, so $x-1\ge 2$, and the algorithm returns
+\[
+\textsc{Choose2}(x-1)+(x-1).
+\]
+By the inductive hypothesis this equals
+\begin{align*}
+\frac{(x-1)(x-2)}{2}+(x-1)
+&= \frac{x^{2}-3x+2}{2}+(x-1)\\
+&= \frac{x^{2}}{2}-\frac{3x}{2}+1+x-1\\
+&= \frac{x^{2}}{2}-\frac{3x}{2}+x\\
+&= \frac{x^{2}}{2}-\frac{x}{2}\\
+&= \frac{x(x-1)}{2}\\
+&= \binom{x}{2}.
+\end{align*}
+
+\textbf{Inductive step, $x$ even.} Then $x\ge 4$, so $x/2$ is an integer and $2\le x/2<x$. The algorithm returns
+\[
+\left(\frac{x}{2}\right)^{2}+2\cdot\textsc{Choose2}\!\left(\frac{x}{2}\right).
+\]
+By the inductive hypothesis, $\textsc{Choose2}(x/2)=(x/2)(x/2-1)/2$, so the return value is
+\begin{align*}
+\left(\frac{x}{2}\right)^{2}+2\cdot\frac{\tfrac{x}{2}\bigl(\tfrac{x}{2}-1\bigr)}{2}
+&= \frac{x^{2}}{4}+\frac{x}{2}\left(\frac{x}{2}-1\right)\\
+&= \frac{x^{2}}{4}+\frac{x}{2}\cdot\frac{x-2}{2}\\
+&= \frac{x^{2}}{4}+\frac{x(x-2)}{4}\\
+&= \frac{x^{2}+x^{2}-2x}{4}\\
+&= \frac{2x^{2}-2x}{4}\\
+&= \frac{x^{2}-x}{2}\\
+&= \frac{x(x-1)}{2}\\
+&= \binom{x}{2}.
+\end{align*}
+
+In both cases the algorithm returns $\binom{x}{2}$. By strong induction, \textsc{Choose2} is correct for every integer $x\ge 2$.
+
+\subsection*{(b)}
+
+The algorithm is defined for $x\ge 2$, so take an integer $k\ge 1$ and set $x=2^{k}$. The base case of the procedure is $x=2$, which is $k=1$.
+
+\textbf{Claim.} $R(2^{k})=k-1$.
+
+\textbf{Proof by induction on $k$.}
+
+\textbf{Base case.} If $k=1$, then $x=2$. The procedure returns immediately, so $R(2)=0=1-1$.
+
+\textbf{Inductive hypothesis.} Assume $k\ge 2$ and $R(2^{k-1})=(k-1)-1=k-2$.
+
+\textbf{Inductive step.} The input $x=2^{k}$ is even and $x\ge 4$, so the procedure makes one recursive call on $x/2=2^{k-1}$. That call contributes $R(2^{k-1})$ further recursive calls. Hence
+\[
+R(2^{k})=1+R(2^{k-1})=1+(k-2)=k-1.
+\]
+
+By induction, \textsc{Choose2}$(2^{k})$ makes $k-1$ recursive calls.
+
+\[
+\boxed{k-1}
+\]
+
+\subsection*{(c)}
+
+Again $x\ge 2$, so take an integer $k\ge 2$ and set $x=2^{k}-1$. This value is odd. The call on an odd input makes one recursive call on the even value $x-1$, and that even call (when it is larger than $2$) makes one recursive call on $(x-1)/2=2^{k-1}-1$. So each time the exponent drops by one, the procedure makes two recursive calls, until it reaches the base case.
+
+Let $R_{k}=R(2^{k}-1)$ for $k\ge 2$.
+
+\textbf{Claim.} $R_{k}=2k-3$.
+
+\textbf{Proof by induction on $k$.}
+
+\textbf{Base case.} If $k=2$, then $x=3$. The input is odd, so the procedure calls \textsc{Choose2}$(2)$ once, and that call is the base case. Thus $R_{2}=1=2\cdot 2-3$.
+
+\textbf{Inductive hypothesis.} Assume $k\ge 3$ and $R_{k-1}=2(k-1)-3=2k-5$.
+
+\textbf{Inductive step.} The input $2^{k}-1$ is odd and at least $7$, so there is one recursive call on $2^{k}-2$. That argument is even and at least $6$, so it is not the base case: it makes one recursive call on
+\[
+\frac{2^{k}-2}{2}=2^{k-1}-1.
+\]
+Therefore
+\[
+R_{k}=2+R_{k-1}=2+(2k-5)=2k-3.
+\]
+
+By induction, \textsc{Choose2}$(2^{k}-1)$ makes $2k-3$ recursive calls.
+
+\[
+\boxed{2k-3}
+\]
+
+\section*{Problem 3}
+
+\subsection*{(a)}
+
+\[
+T(n)=2T\!\left(\frac{2n}{3}\right)+O(n).
+\]
+
+Here $a=2$, $b=3/2$, and $d=1$. Then $b^{d}=3/2$. Since $a>b^{d}$, the Master Theorem gives
+\[
+T(n)=O\!\left(n^{\log_{3/2}2}\right).
+\]
+
+\subsection*{(b)}
+
+\[
+T(n)=3T\!\left(\frac{n}{8}\right)+O(\sqrt{n})=3T\!\left(\frac{n}{8}\right)+O(n^{1/2}).
+\]
+
+Here $a=3$, $b=8$, and $d=1/2$. Then $b^{d}=8^{1/2}=\sqrt{8}=2\sqrt{2}$. Since $3>2\sqrt{2}$, we have $a>b^{d}$, so
+\[
+T(n)=O\!\left(n^{\log_{8}3}\right).
+\]
+
+\subsection*{(c)}
+
+\[
+T(n)=3T\!\left(\frac{n}{9}\right)+O(n^{2}).
+\]
+
+Here $a=3$, $b=9$, and $d=2$. Then $b^{d}=9^{2}=81$. Since $a<b^{d}$, the Master Theorem gives
+\[
+T(n)=O(n^{d})=O(n^{2}).
+\]
+
+\section*{Problem 4}
+
+\subsection*{(a)}
+
+Index the input as $A[1],\ldots,A[n]$. The recursive procedure sorts the suffix that still needs to be sorted. The initial call is \textsc{SS}$(A,n,1)$.
+
+\begin{quote}
+\textsc{SS}$(A, n, \mathrm{index})$
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.35em, topsep=0.4em]
+\item if $\mathrm{index}=n$, return.
+\item Let $m$ be an index with $\mathrm{index}\le m\le n$ such that $A[m]$ is a minimum of\\
+$A[\mathrm{index}],\ldots,A[n]$.
+\item Swap $A[\mathrm{index}]$ and $A[m]$.
+\item \textsc{SS}$(A, n, \mathrm{index}+1)$.
+\end{enumerate}
+\end{quote}
+
+On each call the procedure places the minimum of the remaining suffix into position $\mathrm{index}$, then sorts the strictly shorter suffix that follows. When $\mathrm{index}=n$, a single entry remains and it is already in place, matching the iterative loop that runs only through $i=1,\ldots,n-1$.
+
+\subsection*{(b)}
+
+Let $T(m)$ be the runtime of a call whose unsorted suffix has length $m$. Finding the minimum of a list of length $m$ takes $\Theta(m)$ time, and the following call has suffix length $m-1$. The base case, a suffix of length $1$, returns in constant time. For constants $c>0$ and $d>0$,
+\begin{align*}
+T(1)&=d,\\
+T(m)&=T(m-1)+cm &&\text{for }m\ge 2.
+\end{align*}
+
+Unravel the recurrence:
+\begin{align*}
+T(n)
+&= cn+c(n-1)+c(n-2)+\cdots+c\cdot 2+d\\
+&= c\sum_{i=2}^{n}i+d\\
+&= c\left(\frac{n(n+1)}{2}-1\right)+d\\
+&= \frac{c}{2}n^{2}+\frac{c}{2}n-c+d.
+\end{align*}
+
+The quadratic term dominates, so the runtime on an input of size $n$ is $\Theta(n^{2})$.
+
+\[
+\boxed{T(n)=T(n-1)+\Theta(n),\qquad T(n)=\Theta(n^{2})}
+\]
+
+\end{document}
