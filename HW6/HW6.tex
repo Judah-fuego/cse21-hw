@@ -269,4 +269,28 @@ The quadratic term dominates, so the runtime on an input of size $n$ is $\Theta(
 \boxed{T(n)=T(n-1)+\Theta(n),\qquad T(n)=\Theta(n^{2})}
 \]
 
+\subsection*{(c)}
+
+The initial call is \textsc{SS}$(A,n,1)$. Each call sorts the suffix starting at its index, so it is enough to prove the claim for every index and then set the index to $1$.
+
+\textbf{Claim.} For every index $i$ with $1\le i\le n$, the call \textsc{SS}$(A,n,i)$ sorts $A[i],\ldots,A[n]$ into nondecreasing order and does not change $A[1],\ldots,A[i-1]$.
+
+\textbf{Proof by induction on $k=n-i+1$}, the number of entries from index $i$ to $n$.
+
+\textbf{Base case.} If $k=1$, then $i=n$. The procedure returns immediately, so $A[n]$ stays as it is. One entry is already sorted, and nothing before it changes.
+
+\textbf{Inductive hypothesis.} Assume $k\ge 2$ and that the claim holds for a suffix of length $k-1$. So \textsc{SS}$(A,n,i+1)$ sorts $A[i+1],\ldots,A[n]$ and does not change $A[1],\ldots,A[i]$.
+
+\textbf{Inductive step.} Consider \textsc{SS}$(A,n,i)$ where the suffix has length $k\ge 2$. Then $i\le n-1$, so the procedure does not return in step 1.
+
+Let $x$ be a minimum of $A[i],\ldots,A[n]$, at some index $m$ with $i\le m\le n$. After swapping $A[i]$ and $A[m]$, we have $A[i]=x$, and every entry in $A[i+1],\ldots,A[n]$ is at least $x$. The swap only exchanges two entries inside the suffix, so the suffix still has the same values, and $A[1],\ldots,A[i-1]$ are unchanged.
+
+The procedure then calls \textsc{SS}$(A,n,i+1)$. That suffix has length $k-1$, so by the inductive hypothesis it sorts $A[i+1],\ldots,A[n]$ and leaves $A[i]$ equal to $x$. Every entry it sorted was already at least $x$, so the first of them is still at least $x$. Thus $A[i]\le A[i+1]$, and
+\[
+A[i]\le A[i+1]\le \cdots \le A[n].
+\]
+The recursive call only moves entries in $A[i+1],\ldots,A[n]$, so $A[i],\ldots,A[n]$ is still a rearrangement of the suffix from the start of the call, and the entries before index $i$ are unchanged.
+
+By induction, the claim holds for every index $i$. In particular, \textsc{SS}$(A,n,1)$ sorts $A[1],\ldots,A[n]$.
+
 \end{document}

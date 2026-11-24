@@ -1,0 +1,426 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+
+\begin{flushright}
+CSE 21 Fall 2026\\
+Homework 7\\
+Submitted: 11/23/2026
+\end{flushright}
+
+\begin{center}
+David Washington(200484943), Judah Boyce(200453537),\\
+Osinachi Agaranna(200455712), Nick Young(200455733)
+\end{center}
+
+\section*{Problem 1}
+
+\subsection*{(a)}
+
+Any domino tiling of a $2\times 2n$ grid falls into one of two cases, based on the vertical line between column $n$ and column $n+1$.
+
+\textbf{Case 1: no domino crosses the middle.}
+The tiling splits into a tiling of the left $2\times n$ grid and a tiling of the right $2\times n$ grid. These choices are independent, so there are $DT(n)^{2}$ tilings in this case.
+
+\textbf{Case 2: a domino crosses the middle.}
+A horizontal domino covers two consecutive columns of one row. In a $2$-row tiling, horizontal dominos come in stacked pairs: if one row has a horizontal domino on columns $i$ and $i+1$, the other row must have one on the same two columns, because a vertical domino needs both rows of a single column. So a domino crossing the middle forces a block of two horizontal dominos covering columns $n$ and $n+1$. Removing that block leaves a $2\times(n-1)$ grid on the left and a $2\times(n-1)$ grid on the right, tiled independently. There are $DT(n-1)^{2}$ tilings in this case.
+
+The two cases are disjoint, and every tiling of the $2\times 2n$ grid belongs to one of them: the middle line is either crossed by a domino or it is not. Therefore
+\[
+DT(2n)=DT(n)^{2}+DT(n-1)^{2}.
+\]
+
+\[
+\boxed{DT(2n)=DT(n)^{2}+DT(n-1)^{2}}
+\]
+
+\subsection*{(b)}
+
+Fix an integer $n\ge 1$, and consider a domino tiling of a $2\times(2n+1)$ grid. The width $2n+1$ is odd. Horizontal dominos cover two columns at a time, so they cover an even number of columns altogether. Hence every such tiling uses at least one vertical domino, and there is a leftmost vertical domino.
+
+That leftmost vertical domino lies in an odd-numbered column. If it lay in column $2k$ for some $k\ge 1$, then columns $1$ through $2k-1$ would be tiled with no vertical domino. That region has odd width, and horizontal pairs cover two columns at a time, so it cannot be tiled. The possible columns for the leftmost vertical domino are therefore
+\[
+1,3,5,\ldots,2n+1.
+\]
+
+\textbf{The leftmost vertical domino is in column $2j+1$, for some $j$ with $0\le j\le n$.}
+Columns $1$ through $2j$ contain no vertical domino, so they are filled by stacked horizontal pairs. A horizontal domino covers two consecutive columns of one row and must be stacked on the other row, so the only such tiling is a stacked pair on columns $1$ and $2$, then columns $3$ and $4$, and so on through columns $2j-1$ and $2j$. A $2\times 2j$ grid therefore has exactly one tiling with no vertical domino. Column $2j+1$ is the vertical domino itself. Removing those $2j+1$ columns leaves columns $2j+2$ through $2n+1$, a grid of width
+\[
+(2n+1)-(2j+1)=2(n-j).
+\]
+That remaining grid may be tiled in any way, so it contributes $DT\bigl(2(n-j)\bigr)$ tilings. The left side was forced, so the whole case has $DT\bigl(2(n-j)\bigr)$ tilings.
+
+The two smallest cases make the pattern explicit.
+
+\begin{itemize}[leftmargin=1.6em, itemsep=0.35em, topsep=0.4em]
+\item If the leftmost vertical domino is in column $1$, then $j=0$. Removing it leaves a $2\times 2n$ grid, which has $DT(2n)$ tilings.
+\item If the leftmost vertical domino is in column $3$, then $j=1$. Columns $1$ and $2$ are the unique stacked pair of horizontal dominos. Removing those two columns and the vertical domino leaves a $2\times(2n-2)$ grid, which has $DT(2n-2)$ tilings.
+\end{itemize}
+
+Running through $j=0,1,\ldots,n$ gives the terms
+\[
+DT(2n)+DT(2n-2)+\cdots+DT(2)+DT(0).
+\]
+When $j=n$, the vertical domino is in column $2n+1$ and nothing remains to its right, which is the empty tiling counted by $DT(0)=1$.
+
+Every tiling has exactly one leftmost vertical domino, so these cases are disjoint and they cover every tiling of the $2\times(2n+1)$ grid. Therefore
+\[
+DT(2n+1)=DT(0)+DT(2)+DT(4)+\cdots+DT(2n).
+\]
+
+\[
+\boxed{DT(2n+1)=DT(0)+DT(2)+\cdots+DT(2n)}
+\]
+
+\section*{Problem 2}
+
+\subsection*{(a)}
+
+\textbf{(i)}
+A nonempty string over $\{1,4,5\}$ ends in $1$, $4$, or $5$. Deleting that last digit leaves a string whose digits sum to $n-1$, $n-4$, or $n-5$, and every such string arises once. Thus, for $n\ge 5$,
+\[
+A(n)=A(n-1)+A(n-4)+A(n-5).
+\]
+The empty string is the one string that sums to $0$, so $A(0)=1$. The strings for the remaining base cases are:
+\begin{align*}
+A(1)&=1 &&\text{(``$1$'')},\\
+A(2)&=1 &&\text{(``$11$'')},\\
+A(3)&=1 &&\text{(``$111$'')},\\
+A(4)&=2 &&\text{(``$1111$'', ``$4$'')}.
+\end{align*}
+The same recurrence, with $A(m)=0$ for $m<0$, also produces these four values. As a check, $A(5)=A(4)+A(1)+A(0)=2+1+1=4$, and the strings are ``$11111$'', ``$14$'', ``$41$'', and ``$5$''.
+
+\[
+\boxed{A(n)=A(n-1)+A(n-4)+A(n-5)\ (n\ge 5),
+\quad A(0)=A(1)=A(2)=A(3)=1,\ A(4)=2}
+\]
+
+\textbf{(ii)}
+Substitute $A(n)=x^{n}$ into the recurrence and divide by $x^{n-5}$:
+\[
+x^{5}=x^{4}+x+1, \qquad x^{5}-x^{4}-x-1=0.
+\]
+Wolfram gives one real root $r\approx 1.49709$. The other four roots come in conjugate pairs, and their absolute values are about $1.098$ and $0.744$. Both are smaller than $r$, and $r$ is a simple root, so
+\[
+A(n)=c\,r^{n}+\text{(terms from the smaller roots)}.
+\]
+This is $\Theta(r^{n})$ once $c\neq 0$.
+
+Strings that use only the digits $1$ and $4$ are part of the count $A(n)$. Let $C(n)$ be the number of those strings. The last digit is $1$ or $4$, so $C(n)=C(n-1)+C(n-4)$ with $C(0)=1$. The characteristic polynomial is $x^{4}-x^{3}-1=0$. Wolfram gives a real root $s\approx 1.380$, and the other three roots have absolute value less than $1$. Since $C(n)\ge 1$, the $s^{n}$ term is present and $C(n)=\Theta(s^{n})$.
+
+Every such string is also counted by $A(n)$, so $A(n)\ge C(n)$. If $c$ were $0$, the largest roots left in $A(n)$ would have absolute value about $1.098$, and $A(n)=O(1.098^{n})$. That growth is smaller than $\Theta(s^{n})$, because $s\approx 1.380>1.098$. So $c\neq 0$, and
+\[
+A(n)=\Theta(r^{n}).
+\]
+
+\[
+\boxed{A(n)=\Theta(r^{n}),\quad r\approx 1.49709}
+\]
+
+\subsection*{(b)}
+
+\textbf{(i)}
+Let $T_{i}(n)$ be the number of valid length-$n$ strings that start with $i$. Partitioning on the first character gives
+\[
+T(n)=T_{0}(n)+T_{1}(n)+T_{2}(n).
+\]
+A string starting with $2$ can be followed by any valid string of length $n-1$: the digit $2$ does not form $00$ or $11$ with whatever comes next. So $T_{2}(n)=T(n-1)$. Swapping $0$ and $1$ is a bijection between the valid strings starting with $0$ and those starting with $1$, so $T_{0}(n)=T_{1}(n)$. Therefore
+\[
+T(n)=2T_{0}(n)+T(n-1), \qquad T_{0}(n)=\frac{T(n)-T(n-1)}{2}.
+\]
+For a second expression, drop the leading $0$. The remaining string is any valid string of length $n-1$ that does not itself start with $0$, since a leading $00$ is forbidden, and every such string stays valid after a $0$ is written in front. So
+\[
+T_{0}(n)=T(n-1)-T_{0}(n-1).
+\]
+The same formula one step earlier is $T_{0}(n-1)=(T(n-1)-T(n-2))/2$. Equating the two expressions for $T_{0}(n)$ gives
+\begin{align*}
+\frac{T(n)-T(n-1)}{2}
+&= T(n-1)-\frac{T(n-1)-T(n-2)}{2}.
+\end{align*}
+Multiplying through by $2$ and simplifying,
+\begin{align*}
+T(n)-T(n-1)
+&= 2T(n-1)-\bigl(T(n-1)-T(n-2)\bigr)\\
+&= T(n-1)+T(n-2),
+\end{align*}
+so $T(n)=2T(n-1)+T(n-2)$ for $n\ge 2$.
+
+The empty string is the one string of length $0$, and it has no forbidden pair, so $T(0)=1$. The length-$1$ strings are $0$, $1$, and $2$, so $T(1)=3$.
+
+\[
+\boxed{T(n)=2T(n-1)+T(n-2)\ (n\ge 2),\quad T(0)=1,\quad T(1)=3}
+\]
+
+\textbf{(ii)}
+The prompt asks for a bound on a sequence $B(n)$. That sequence is $T(n)$ from part (i). The characteristic equation of $T(n)-2T(n-1)-T(n-2)=0$ is
+\[
+x^{2}-2x-1=0, \qquad x=1\pm\sqrt{2}.
+\]
+Numerically, $1+\sqrt{2}\approx 2.414$ and $1-\sqrt{2}\approx -0.414$. The general solution is
+\[
+T(n)=c_{1}(1+\sqrt{2})^{n}+c_{2}(1-\sqrt{2})^{n}.
+\]
+The initial conditions are $c_{1}+c_{2}=1$ and $c_{1}(1+\sqrt{2})+c_{2}(1-\sqrt{2})=3$. Substitute $c_{2}=1-c_{1}$:
+\begin{align*}
+c_{1}(1+\sqrt{2})+(1-c_{1})(1-\sqrt{2})&=3,\\
+c_{1}\bigl((1+\sqrt{2})-(1-\sqrt{2})\bigr)&=3-(1-\sqrt{2}),\\
+2\sqrt{2}\,c_{1}&=2+\sqrt{2},\\
+c_{1}&=\frac{2+\sqrt{2}}{2\sqrt{2}}=\frac{1+\sqrt{2}}{2}\neq 0.
+\end{align*}
+Since $|1-\sqrt{2}|<1<1+\sqrt{2}$, the second term is bounded and the first term determines the growth:
+\[
+T(n)=\Theta\!\left((1+\sqrt{2})^{n}\right).
+\]
+
+\[
+\boxed{T(n)=\Theta\!\left((1+\sqrt{2})^{n}\right)}
+\]
+
+\section*{Problem 3}
+
+\subsection*{(a)}
+
+$P(0)$ is a plus with four arms, so it has four endpoints: $S(0)=4$. The prompt states the recursive step for $n\ge 2$. The picture builds $P(1)$ from $P(0)$ by that same step, so the relation below holds for every $n\ge 1$. At step $n$, a T is attached at every endpoint of $P(n-1)$. In the picture each T is a stem with a two-sided crossbar, and the endpoint counts are $S(0)=4$, $S(1)=12$, and $S(2)=36$. Those are $4$, $4\cdot 3$, and $4\cdot 3^{2}$, so each old endpoint is replaced by three new endpoints:
+\[
+S(n)=3S(n-1).
+\]
+
+\[
+\boxed{S(n)=3S(n-1),\quad S(0)=4}
+\]
+
+\subsection*{(b)}
+
+Substitute the recurrence from (a) over and over. Each time, $S(m)$ is replaced by $3S(m-1)$, so the power of $3$ goes up by one and the index goes down by one:
+\[
+S(n)=3S(n-1)=3^{2}S(n-2)=\cdots=3^{n}S(0).
+\]
+After $n$ steps the index is $0$. Using $S(0)=4$,
+\[
+S(n)=3^{n}\cdot 4=4\cdot 3^{n}.
+\]
+
+\[
+\boxed{S(n)=4\cdot 3^{n}}
+\]
+
+\subsection*{(c)}
+
+The original plus is four arms of length $1$, so $L(0)=4$. At step $n\ge 1$, a T is added at each of the $S(n-1)$ endpoints. Each T contributes three arms, and each of those arms has length equal to half the length of the arms added at the previous step, namely $(1/2)^{n}$. Segments added at earlier steps keep their original lengths. The number of new segments is
+\[
+3S(n-1)=3\cdot 4\cdot 3^{n-1}=4\cdot 3^{n}.
+\]
+The length added at step $n$ is
+\[
+4\cdot 3^{n}\cdot\left(\frac{1}{2}\right)^{n}=4\left(\frac{3}{2}\right)^{n}.
+\]
+Therefore
+\[
+L(n)=L(n-1)+4\left(\frac{3}{2}\right)^{n}.
+\]
+
+\[
+\boxed{L(n)=L(n-1)+4\left(\dfrac{3}{2}\right)^{n},\quad L(0)=4}
+\]
+
+\subsection*{(d)}
+
+Unfold the recurrence from (c) down to $L(0)$. The value $L(n)$ is the original length plus the length added at each later step:
+\[
+L(n)=L(0)+4\cdot\frac{3}{2}+4\left(\frac{3}{2}\right)^{2}+\cdots+4\left(\frac{3}{2}\right)^{n}.
+\]
+Since $L(0)=4=4\cdot(3/2)^{0}$, every term has the same shape:
+\[
+L(n)=\sum_{k=0}^{n}4\left(\frac{3}{2}\right)^{k}.
+\]
+The sum $\sum_{k=0}^{n}r^{k}=(r^{n+1}-1)/(r-1)$ with $r=3/2$ gives
+\begin{align*}
+L(n)
+&=4\cdot\frac{\left(\dfrac{3}{2}\right)^{n+1}-1}{\dfrac{3}{2}-1}
+=4\cdot\frac{\left(\dfrac{3}{2}\right)^{n+1}-1}{\dfrac{1}{2}}
+=8\left(\left(\frac{3}{2}\right)^{n+1}-1\right).
+\end{align*}
+The first term simplifies by $8\cdot(3/2)^{n+1}=8\cdot(3/2)\cdot(3/2)^{n}=12\cdot(3/2)^{n}$, so
+\[
+L(n)=12\left(\frac{3}{2}\right)^{n}-8.
+\]
+
+\[
+\boxed{L(n)=12\left(\dfrac{3}{2}\right)^{n}-8}
+\]
+
+\section*{Problem 4}
+
+Let $\Sigma=\{A,B,C,D,E,F,G,H,I,J,K,L\}$, so $|\Sigma|=12$.
+
+\subsection*{(a)}
+
+A fixed-length code for one character needs the smallest $k$ with $2^{k}\ge 12$. Since $2^{3}=8<12$ and $2^{4}=16\ge 12$, each character uses $4$ bits. A string of $5$ characters therefore uses
+\[
+4\cdot 5=20
+\]
+bits.
+
+\[
+\boxed{20}
+\]
+
+\subsection*{(b)}
+
+Number the letters in order, starting at $0$, and write each number as a $4$-bit string.
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Letter & Decimal & Binary \\
+\midrule
+$A$ & $0$ & $0000$ \\
+$B$ & $1$ & $0001$ \\
+$C$ & $2$ & $0010$ \\
+$D$ & $3$ & $0011$ \\
+$E$ & $4$ & $0100$ \\
+$F$ & $5$ & $0101$ \\
+$G$ & $6$ & $0110$ \\
+$H$ & $7$ & $0111$ \\
+$I$ & $8$ & $1000$ \\
+$J$ & $9$ & $1001$ \\
+$K$ & $10$ & $1010$ \\
+$L$ & $11$ & $1011$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{(c)}
+
+\textbf{(i)}
+\begin{align*}
+B&\mapsto 0001, &
+E&\mapsto 0100, &
+L&\mapsto 1011, &
+C&\mapsto 0010, &
+H&\mapsto 0111.
+\end{align*}
+\[
+\boxed{0001\,0100\,1011\,0010\,0111}
+\]
+
+\textbf{(ii)}
+\begin{align*}
+L&\mapsto 1011, &
+I&\mapsto 1000, &
+K&\mapsto 1010, &
+E&\mapsto 0100, &
+D&\mapsto 0011.
+\end{align*}
+\[
+\boxed{1011\,1000\,1010\,0100\,0011}
+\]
+
+\textbf{(iii)}
+Split into $4$-bit blocks and invert the table:
+\[
+0101\mapsto F,\quad
+0101\mapsto F,\quad
+1011\mapsto L,\quad
+0110\mapsto G,\quad
+0101\mapsto F.
+\]
+\[
+\boxed{\text{FFLGF}}
+\]
+
+\textbf{(iv)}
+The second block is $1100$, which is $12$ in decimal. Every letter code in the table is an integer from $0$ through $11$, so $1100$ is not the code of any letter.
+\[
+\boxed{\text{non-decodable}}
+\]
+
+\subsection*{(d)}
+
+There are $12^{5}=248832$ strings of length $5$. Since
+\[
+2^{17}=131072<248832\le 262144=2^{18},
+\]
+distinguishing them takes $\lceil\log_{2}(12^{5})\rceil=\lceil 5\log_{2} 12\rceil=18$ bits.
+
+\[
+\boxed{18}
+\]
+
+\subsection*{(e)}
+
+Number the letters as in part (b): $A=0,B=1,\ldots,K=10,L=11$. Encode a string $c_{4}c_{3}c_{2}c_{1}c_{0}$ by the integer
+\[
+N=c_{4}\cdot 12^{4}+c_{3}\cdot 12^{3}+c_{2}\cdot 12^{2}+c_{1}\cdot 12+c_{0},
+\]
+write $N$ in binary, and pad on the left with zeros to $18$ bits. The values of $N$ are exactly $0,1,\ldots,12^{5}-1$, and $12^{5}\le 2^{18}$, so every string gets a distinct $18$-bit code.
+
+To decode an $18$-bit string, read it as an integer $N$. If $N\ge 12^{5}$, the string is non-decodable. Otherwise convert $N$ to five base-$12$ digits, using a leading $0$ when there are fewer than five, and replace each digit by its letter.
+
+\textbf{(i)}
+$\text{BELCH}$ has digits $1,4,11,2,7$, so
+\begin{align*}
+N
+&= 1\cdot 12^{4}+4\cdot 12^{3}+11\cdot 12^{2}+2\cdot 12+7\\
+&= 20736+6912+1584+24+7\\
+&= 29263.
+\end{align*}
+In binary, $29263=111001001001111_{2}$, which is $15$ bits. Three leading zeros make $18$ bits:
+\[
+\boxed{000111001001001111}
+\]
+
+\textbf{(ii)}
+$\text{LIKED}$ has digits $11,8,10,4,3$, so
+\begin{align*}
+N
+&= 11\cdot 12^{4}+8\cdot 12^{3}+10\cdot 12^{2}+4\cdot 12+3\\
+&= 228096+13824+1440+48+3\\
+&= 243411.
+\end{align*}
+In binary, $243411=111011011011010011_{2}$, already $18$ bits:
+\[
+\boxed{111011011011010011}
+\]
+
+\textbf{(iii)}
+\[
+100101000111101010_{2}=152042.
+\]
+Since $152042<248832$, divide by $12$. The remainders, least significant digit first, are
+\begin{align*}
+152042&=12\cdot 12670+2,\\
+12670&=12\cdot 1055+10,\\
+1055&=12\cdot 87+11,\\
+87&=12\cdot 7+3,\\
+7&=12\cdot 0+7.
+\end{align*}
+Most significant digit first, the digits are $7,3,11,10,2$, which are $H,D,L,K,C$.
+\[
+\boxed{\text{HDLKC}}
+\]
+
+\textbf{(iv)}
+\[
+001011100010010111_{2}=47255.
+\]
+Since $47255<248832$, divide by $12$:
+\begin{align*}
+47255&=12\cdot 3937+11,\\
+3937&=12\cdot 328+1,\\
+328&=12\cdot 27+4,\\
+27&=12\cdot 2+3,\\
+2&=12\cdot 0+2.
+\end{align*}
+Most significant digit first, the digits are $2,3,4,1,11$, which are $C,D,E,B,L$.
+\[
+\boxed{\text{CDEBL}}
+\]
+
+\end{document}
